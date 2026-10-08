@@ -172,55 +172,55 @@ export const IncidentsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Details Card */}
-        <div className="card-2d p-6 bg-white flex flex-col justify-between">
+        {/* Right Details Card (Sleek Dark Forensic Vault) */}
+        <div className="card-dark p-6 bg-[#0B1120] text-slate-100 border border-slate-800 flex flex-col justify-between shadow-2xl">
           <div>
-            <div className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-4 pb-2 border-b-2 border-slate-100 font-mono flex items-center space-x-2">
-              <Fingerprint className="w-4 h-4 text-indigo-600" />
+            <div className="text-xs font-extrabold text-white uppercase tracking-wider mb-4 pb-2 border-b border-slate-800 font-mono flex items-center space-x-2">
+              <Fingerprint className="w-4 h-4 text-indigo-400" />
               <span>Forensic Evidence Inspector</span>
             </div>
 
             {selectedIncident ? (
               <div className="space-y-4 text-xs font-mono animate-scale-up">
-                <div className="p-4 rounded-xl bg-slate-50 border-2 border-slate-200 space-y-2.5">
+                <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2.5">
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Request ID:</span>
-                    <span className="text-slate-900 font-extrabold">{selectedIncident.request_id}</span>
+                    <span className="text-slate-400">Request ID:</span>
+                    <span className="text-white font-extrabold">{selectedIncident.request_id}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Action Enforced:</span>
-                    <span className="badge-2d bg-emerald-50 text-emerald-800 border-emerald-400 text-[10px] px-2 py-0.5 rounded font-bold uppercase">
+                    <span className="text-slate-400">Action Enforced:</span>
+                    <span className="badge-2d bg-emerald-950/80 text-emerald-400 border-emerald-700 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">
                       {selectedIncident.action_taken}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Threat Score:</span>
-                    <span className="text-rose-700 font-extrabold text-sm">{selectedIncident.risk_score} / 100</span>
+                    <span className="text-slate-400">Threat Score:</span>
+                    <span className="text-rose-400 font-extrabold text-sm">{selectedIncident.risk_score} / 100</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Recorded At:</span>
-                    <span className="text-slate-700 font-medium">
+                    <span className="text-slate-400">Recorded At:</span>
+                    <span className="text-slate-300 font-medium">
                       {new Date(selectedIncident.timestamp).toLocaleString()}
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-slate-700 font-bold mb-1.5 text-[11px] uppercase">
+                  <div className="text-slate-400 font-bold mb-1.5 text-[11px] uppercase">
                     Incident Query Text:
                   </div>
-                  <div className="p-3.5 rounded-xl bg-slate-50 border-2 border-slate-200 text-slate-900 font-sans leading-relaxed text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 font-sans leading-relaxed text-xs">
                     {selectedIncident.query_text}
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-slate-700 font-bold mb-1.5 text-[11px] uppercase">
+                  <div className="text-slate-400 font-bold mb-1.5 text-[11px] uppercase">
                     Layers Triggered &bull; Reason Codes:
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedIncident.reason_codes.map((rc, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-lg bg-rose-50 border border-rose-300 text-rose-800 text-[10px] font-bold">
+                      <span key={i} className="px-2 py-0.5 rounded-lg bg-rose-950/80 border border-rose-800 text-rose-300 text-[10px] font-bold">
                         {rc}
                       </span>
                     ))}
@@ -228,22 +228,22 @@ export const IncidentsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <div className="text-slate-700 font-bold mb-1.5 text-[11px] uppercase">
+                  <div className="text-slate-400 font-bold mb-1.5 text-[11px] uppercase">
                     Tamper-Evident SHA-256 Digest:
                   </div>
-                  <div className="p-3 rounded-xl bg-slate-50 border-2 border-slate-200 text-indigo-700 font-mono text-[10px] break-all font-bold">
+                  <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-cyan-400 font-mono text-[10px] break-all font-bold">
                     {selectedIncident.forensic_hash}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="text-center py-20 text-slate-400 text-xs font-mono bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
+              <div className="text-center py-20 text-slate-500 text-xs font-mono bg-slate-950 rounded-xl border border-dashed border-slate-800">
                 Select an incident record to inspect forensic cryptographic evidence.
               </div>
             )}
           </div>
 
-          <div className="mt-5 pt-3.5 border-t border-slate-200 text-[11px] text-slate-500 font-mono">
+          <div className="mt-5 pt-3.5 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
             Verification status: Cryptographic chain intact. Zero tampering detected.
           </div>
         </div>

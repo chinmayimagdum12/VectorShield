@@ -64,21 +64,21 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans relative selection:bg-slate-900 selection:text-white">
-      {/* Animated Clean Particle Mesh Background */}
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans relative selection:bg-indigo-600 selection:text-white">
+      {/* Animated Subtle Constellation Mesh Background */}
       <CyberBackground />
 
-      {/* Global Security Header */}
+      {/* Sleek Dark Command Header */}
       <Header health={health} activeTab={activeTab} />
 
-      {/* 2D Neo-Cyber Navigation */}
+      {/* Sleek Dark Navigation Dock */}
       <Navigation
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         incidentCount={incidentCount}
       />
 
-      {/* Main Content Viewport */}
+      {/* Main Content Viewport (Luminous Analytics Canvas) */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-6 relative z-10">
         {activeTab === 'dashboard' && (
           <DashboardPage health={health} onNavigate={setActiveTab} />
@@ -92,23 +92,23 @@ export function App() {
         {activeTab === 'policies' && <PolicyStudioPage />}
       </main>
 
-      {/* Clean White 2D Footer */}
-      <footer className="border-t-2 border-slate-900 bg-white py-4 px-6 text-xs text-slate-600 font-mono mt-auto relative z-10 shadow-[0_-4px_10px_rgba(15,23,42,0.03)]">
+      {/* Sleek Dark Console Footer */}
+      <footer className="border-t border-slate-800 bg-[#090D1A] py-4 px-6 text-xs text-slate-400 font-mono mt-auto relative z-10 shadow-lg">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse border border-slate-900" />
-            <span className="font-bold text-slate-900">VectorShield Enterprise Defense Platform</span>
-            <span className="text-slate-400">&bull;</span>
-            <span className="text-slate-500">v1.0.0 Production</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-bold text-white">VectorShield Enterprise Defense Platform</span>
+            <span className="text-slate-600">&bull;</span>
+            <span className="text-slate-400">v1.0.0 Production</span>
           </div>
-          <div className="flex items-center space-x-4 text-slate-600">
-            <span className="font-semibold">OWASP Top 10 for LLM: LLM01 &amp; LLM07 Hardened</span>
-            <span className="text-slate-300">&bull;</span>
+          <div className="flex items-center space-x-4 text-slate-400">
+            <span className="font-medium">OWASP Top 10 for LLM: LLM01 &amp; LLM07 Hardened</span>
+            <span className="text-slate-700">&bull;</span>
             <a
               href="http://localhost:8000/docs"
               target="_blank"
               rel="noreferrer"
-              className="text-indigo-600 font-bold hover:underline"
+              className="text-indigo-400 font-bold hover:underline"
             >
               Interactive API /docs &rarr;
             </a>

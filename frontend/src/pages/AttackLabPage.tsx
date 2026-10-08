@@ -228,64 +228,64 @@ export const AttackLabPage: React.FC = () => {
 
           {/* Split Duel View */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* 1. Undefended Victim RAG */}
-            <div className="card-2d p-6 border-2 border-rose-300 bg-rose-50/30 shadow-[4px_4px_0px_#E11D48] flex flex-col justify-between">
+            {/* 1. Undefended Victim RAG (Dark Breached Terminal) */}
+            <div className="card-dark p-6 border border-rose-900/80 bg-[#0E0712] shadow-xl flex flex-col justify-between text-slate-200">
               <div>
-                <div className="flex items-center justify-between pb-3.5 border-b-2 border-rose-200">
+                <div className="flex items-center justify-between pb-3.5 border-b border-rose-900/60">
                   <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 rounded-full bg-rose-600 animate-pulse" />
-                    <span className="font-mono text-xs font-extrabold text-rose-700">
+                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" />
+                    <span className="font-mono text-xs font-extrabold text-rose-400">
                       UNDEFENDED TARGET RAG
                     </span>
                   </div>
-                  <span className="badge-2d bg-rose-100 text-rose-700 border-rose-400 text-[10px] px-2 py-0.5 rounded font-mono font-bold">
+                  <span className="badge-2d bg-rose-950/80 text-rose-300 border-rose-700 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">
                     DEFENSES: OFF
                   </span>
                 </div>
 
                 {/* Status Banner */}
-                <div className="mt-4 p-3 rounded-lg bg-rose-100/70 border-2 border-rose-300 flex items-center justify-between text-xs">
-                  <span className="text-rose-900 font-bold flex items-center font-mono">
-                    <XCircle className="w-4 h-4 mr-2 text-rose-600" />
+                <div className="mt-4 p-3 rounded-xl bg-rose-950/40 border border-rose-800/60 flex items-center justify-between text-xs">
+                  <span className="text-rose-300 font-bold flex items-center font-mono">
+                    <XCircle className="w-4 h-4 mr-2 text-rose-500" />
                     Status: System Compromised
                   </span>
-                  <span className="font-mono text-rose-700 text-xs font-bold bg-white px-2 py-0.5 rounded border border-rose-200">
+                  <span className="font-mono text-rose-400 text-xs font-bold bg-black/40 px-2 py-0.5 rounded border border-rose-900/60">
                     {duelResult.victim_response.latency_ms} ms
                   </span>
                 </div>
 
                 {/* LLM Response */}
                 <div className="mt-4">
-                  <div className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider mb-1.5 font-mono">
+                  <div className="text-[11px] font-extrabold text-rose-300/80 uppercase tracking-wider mb-1.5 font-mono">
                     Victim Model Output (Breached):
                   </div>
-                  <div className="p-4 rounded-lg bg-white border-2 border-rose-200 font-mono text-xs text-rose-900 leading-relaxed min-h-[130px] shadow-sm select-all">
+                  <div className="p-4 rounded-xl bg-black/60 border border-rose-900/60 font-mono text-xs text-rose-200 leading-relaxed min-h-[130px] shadow-inner select-all">
                     {duelResult.victim_response.answer}
                   </div>
                 </div>
               </div>
 
               {/* Forensic Details */}
-              <div className="mt-5 pt-3.5 border-t-2 border-rose-200 text-xs font-mono space-y-2">
-                <div className="flex justify-between items-center text-slate-600">
+              <div className="mt-5 pt-3.5 border-t border-rose-900/50 text-xs font-mono space-y-2">
+                <div className="flex justify-between items-center text-slate-400">
                   <span>Instruction Override:</span>
-                  <span className="text-rose-700 font-bold bg-rose-100 px-2 py-0.5 rounded border border-rose-300">
+                  <span className="text-rose-400 font-bold bg-rose-950/80 px-2 py-0.5 rounded border border-rose-800">
                     SUCCUMBED
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600">
+                <div className="flex justify-between items-center text-slate-400">
                   <span>Canary Leakage:</span>
                   <span className={`font-bold px-2 py-0.5 rounded border ${
                     duelResult.victim_response.canary_leaked
-                      ? 'text-rose-700 bg-rose-100 border-rose-300'
-                      : 'text-slate-700 bg-slate-100 border-slate-300'
+                      ? 'text-rose-400 bg-rose-950 border-rose-700'
+                      : 'text-slate-400 bg-slate-900 border-slate-800'
                   }`}>
                     {duelResult.victim_response.canary_leaked ? 'LEAKED' : 'NONE DETECTED'}
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600">
+                <div className="flex justify-between items-center text-slate-400">
                   <span>Retrieved Chunks:</span>
-                  <span className="text-slate-800 font-medium">
+                  <span className="text-slate-300 font-medium">
                     {duelResult.victim_response.retrieved_chunks.length} uninspected chunks
                   </span>
                 </div>

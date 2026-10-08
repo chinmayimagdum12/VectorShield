@@ -200,19 +200,19 @@ export const ScannerPage: React.FC = () => {
           />
         </div>
 
-        {/* Right: Scan Results & Risk Breakdown */}
-        <div className="card-2d p-6 bg-white flex flex-col justify-between">
+        {/* Right: Scan Results & Risk Breakdown (Sleek Dark Console) */}
+        <div className="card-dark p-6 bg-[#0B1120] text-slate-100 border border-slate-800 flex flex-col justify-between shadow-2xl">
           <div>
-            <div className="flex items-center justify-between pb-3.5 border-b-2 border-slate-100 mb-4">
-              <span className="text-xs font-extrabold text-slate-800 uppercase tracking-wider font-mono">
+            <div className="flex items-center justify-between pb-3.5 border-b border-slate-800 mb-4">
+              <span className="text-xs font-extrabold text-white uppercase tracking-wider font-mono">
                 Adversarial Assessment Verdict
               </span>
               {scanResult && (
                 <span
-                  className={`badge-2d text-[10px] px-3 py-1 rounded-lg font-mono font-bold ${
+                  className={`badge-2d text-[10px] px-3 py-1 rounded-full font-mono font-bold ${
                     scanResult.is_blocked
-                      ? 'bg-rose-100 text-rose-800 border-rose-500 shadow-[2px_2px_0px_#E11D48]'
-                      : 'bg-emerald-100 text-emerald-900 border-emerald-500 shadow-[2px_2px_0px_#059669]'
+                      ? 'bg-rose-950/80 text-rose-400 border-rose-700'
+                      : 'bg-emerald-950/80 text-emerald-400 border-emerald-700'
                   }`}
                 >
                   {scanResult.is_blocked ? 'BLOCKED / QUARANTINE' : 'SAFE FOR INDEXING'}
@@ -223,19 +223,19 @@ export const ScannerPage: React.FC = () => {
             {scanResult ? (
               <div className="space-y-4 animate-scale-up">
                 {/* Risk Score Meter */}
-                <div className={`p-4 rounded-xl border-2 flex items-center justify-between ${
+                <div className={`p-4 rounded-xl border flex items-center justify-between ${
                   scanResult.risk_score >= 65
-                    ? 'bg-rose-50/70 border-rose-300'
-                    : 'bg-emerald-50/70 border-emerald-300'
+                    ? 'bg-rose-950/40 border-rose-800/80'
+                    : 'bg-emerald-950/40 border-emerald-800/80'
                 }`}>
                   <div>
-                    <div className="text-[11px] font-extrabold text-slate-600 uppercase font-mono">
+                    <div className="text-[11px] font-extrabold text-slate-400 uppercase font-mono">
                       Noisy-OR Composite Risk Score
                     </div>
                     <div className="flex items-baseline space-x-2 mt-1">
                       <span
                         className={`text-4xl font-extrabold font-mono ${
-                          scanResult.risk_score >= 65 ? 'text-rose-600' : 'text-emerald-700'
+                          scanResult.risk_score >= 65 ? 'text-rose-400' : 'text-emerald-400'
                         }`}
                       >
                         {scanResult.risk_score}
@@ -245,8 +245,8 @@ export const ScannerPage: React.FC = () => {
                   </div>
 
                   <div className="text-right text-xs font-mono">
-                    <div className="text-slate-500 font-bold">Total Findings:</div>
-                    <div className="text-xl font-mono font-extrabold text-slate-900">{scanResult.findings.length}</div>
+                    <div className="text-slate-400 font-bold">Total Findings:</div>
+                    <div className="text-xl font-mono font-extrabold text-white">{scanResult.findings.length}</div>
                     <div className="text-[10px] text-slate-500 mt-0.5">
                       {scanResult.metadata?.encoded_payloads || 0} Encoded &bull; {scanResult.metadata?.hidden_elements || 0} Hidden
                     </div>
@@ -256,30 +256,30 @@ export const ScannerPage: React.FC = () => {
                 {/* Findings List */}
                 <div className="space-y-2.5 max-h-[220px] overflow-y-auto pr-1">
                   {scanResult.findings.length === 0 ? (
-                    <div className="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200 text-xs text-emerald-900 flex items-center space-x-2.5 font-mono">
-                      <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
+                    <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/60 text-xs text-emerald-300 flex items-center space-x-2.5 font-mono">
+                      <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
                       <span className="font-medium">Zero adversarial patterns or steganographic anomalies detected. Pristine document.</span>
                     </div>
                   ) : (
                     scanResult.findings.map((f, i) => (
                       <div
                         key={i}
-                        className={`p-3.5 rounded-xl border-2 text-xs ${
+                        className={`p-3.5 rounded-xl border text-xs ${
                           f.severity === 'critical'
-                            ? 'bg-rose-50/80 border-rose-300 text-rose-950 shadow-[2px_2px_0px_#E11D48]'
-                            : 'bg-amber-50/80 border-amber-300 text-amber-950 shadow-[2px_2px_0px_#D97706]'
+                            ? 'bg-rose-950/50 border-rose-800/80 text-rose-200'
+                            : 'bg-amber-950/50 border-amber-800/80 text-amber-200'
                         }`}
                       >
                         <div className="flex items-center justify-between font-mono text-[11px] font-extrabold mb-1">
-                          <span className={f.severity === 'critical' ? 'text-rose-700' : 'text-amber-700'}>
+                          <span className={f.severity === 'critical' ? 'text-rose-400' : 'text-amber-400'}>
                             {f.reason_code}
                           </span>
-                          <span className="uppercase text-[9px] px-2 py-0.5 rounded bg-white border border-slate-300 text-slate-700 font-bold">
+                          <span className="uppercase text-[9px] px-2 py-0.5 rounded bg-black/50 border border-slate-700 text-slate-300 font-bold">
                             {f.severity} &bull; Offset [{f.start}:{f.end}]
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-700 font-sans font-medium">{f.description}</p>
-                        <div className="mt-1.5 font-mono text-[10px] text-slate-800 bg-white/80 p-2 rounded-lg border border-slate-200 truncate">
+                        <p className="text-[11px] text-slate-300 font-sans font-medium">{f.description}</p>
+                        <div className="mt-1.5 font-mono text-[10px] text-slate-400 bg-black/60 p-2 rounded-lg border border-slate-800 truncate">
                           Snippet: &quot;{f.snippet}&quot;
                         </div>
                       </div>
@@ -288,7 +288,7 @@ export const ScannerPage: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="text-center py-20 text-slate-500 text-xs font-mono bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
+              <div className="text-center py-20 text-slate-500 text-xs font-mono bg-slate-950 rounded-xl border border-dashed border-slate-800">
                 Click &quot;RUN DEEP SCAN&quot; or upload a document to begin multi-stage inspection.
               </div>
             )}

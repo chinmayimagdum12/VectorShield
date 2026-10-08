@@ -83,23 +83,23 @@ export const DashboardPage: React.FC<DashboardProps> = ({ health, onNavigate }) 
 
   return (
     <div className="space-y-6">
-      {/* Live Threat Stream Ticker Bar */}
-      <div className="card-2d p-3 bg-white border-2 border-slate-900 flex items-center justify-between overflow-hidden shadow-[3px_3px_0px_#0F172A]">
+      {/* Live Threat Stream Ticker Bar (Sleek Dark Console) */}
+      <div className="card-dark p-3.5 bg-[#090D1A] border border-slate-800 flex items-center justify-between overflow-hidden shadow-lg">
         <div className="flex items-center space-x-2 text-xs font-mono shrink-0">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-          <span className="font-extrabold text-emerald-800 uppercase tracking-wider text-[11px] bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+          <span className="font-extrabold text-emerald-400 uppercase tracking-wider text-[11px] bg-emerald-950/80 border border-emerald-700/60 px-2 py-0.5 rounded-full">
             LIVE SENTINEL FEED
           </span>
         </div>
 
         <div className="flex items-center space-x-3 text-xs font-mono truncate px-3">
-          <span className="text-slate-400 text-[10px]">[{threatEvents[tickerIndex].time}]</span>
-          <span className="badge-2d bg-rose-50 text-rose-700 border-rose-900 text-[9px] px-1.5 py-0.2 rounded font-mono">
+          <span className="text-slate-500 text-[10px]">[{threatEvents[tickerIndex].time}]</span>
+          <span className="badge-2d bg-rose-950/80 text-rose-300 border-rose-800 text-[9px] px-1.5 py-0.2 rounded font-mono font-bold">
             {threatEvents[tickerIndex].fam}
           </span>
-          <span className="text-slate-900 font-bold text-[11px] truncate">{threatEvents[tickerIndex].type}</span>
-          <span className="text-emerald-700 font-bold text-[10px] hidden sm:inline">&rarr; {threatEvents[tickerIndex].action}</span>
-          <span className="text-slate-500 text-[10px] hidden md:inline">(Risk: {threatEvents[tickerIndex].risk})</span>
+          <span className="text-white font-bold text-[11px] truncate">{threatEvents[tickerIndex].type}</span>
+          <span className="text-emerald-400 font-bold text-[10px] hidden sm:inline">&rarr; {threatEvents[tickerIndex].action}</span>
+          <span className="text-slate-400 text-[10px] hidden md:inline">(Risk: {threatEvents[tickerIndex].risk})</span>
         </div>
 
         <button
@@ -107,7 +107,7 @@ export const DashboardPage: React.FC<DashboardProps> = ({ health, onNavigate }) 
             sound.playClick();
             setShowReportModal(true);
           }}
-          className="btn-2d-primary px-3.5 py-1.5 rounded-lg text-[11px] font-mono shrink-0 flex items-center space-x-1.5 shadow-[3px_3px_0px_#4F46E5] hover:shadow-[4px_4px_0px_#6366F1] active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          className="btn-2d-primary px-3.5 py-1.5 rounded-xl text-[11px] font-mono shrink-0 flex items-center space-x-1.5 shadow-sm active:translate-y-0.5 transition-all"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
           <FileCheck2 className="w-3.5 h-3.5 text-indigo-400" />
@@ -115,31 +115,31 @@ export const DashboardPage: React.FC<DashboardProps> = ({ health, onNavigate }) 
         </button>
       </div>
 
-      {/* Top 4 Hero Metrics Cards */}
+      {/* Top 4 Hero Metrics Cards (Dual-Tone: 1 Dark Hero + 3 Clean Light) */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {/* Metric 1 */}
-        <div className="card-2d p-5 relative overflow-hidden group bg-white border-2 border-slate-900">
+        {/* Metric 1 (Sleek Dark Hero Card) */}
+        <div className="card-dark p-5 relative overflow-hidden group bg-[#0A1020] border border-slate-800 shadow-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider font-mono">
+            <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider font-mono">
               Attack Prevention
             </span>
-            <span className="badge-2d bg-emerald-100 text-emerald-800 border-slate-900 text-[10px] px-2 py-0.5 rounded font-mono">
+            <span className="badge-2d bg-emerald-950 text-emerald-400 border-emerald-700 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">
               ASR DROP
             </span>
           </div>
           <div className="mt-3 flex items-baseline space-x-2">
-            <span className="text-3xl font-black font-mono text-emerald-600">96.4%</span>
-            <span className="text-xs text-emerald-700 font-bold flex items-center">
+            <span className="text-3xl font-black font-mono text-emerald-400">96.4%</span>
+            <span className="text-xs text-emerald-300 font-bold flex items-center font-mono">
               <TrendingDown className="w-3.5 h-3.5 mr-0.5" /> 98.2% &rarr; 1.8%
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1 font-medium">
+          <p className="text-xs text-slate-400 mt-1 font-medium font-sans">
             Empirical reduction across 142 red-team attack vectors
           </p>
         </div>
 
-        {/* Metric 2 */}
-        <div className="card-2d p-5 relative overflow-hidden group bg-white border-2 border-slate-900">
+        {/* Metric 2 (Clean Light Card) */}
+        <div className="card-pro p-5 relative overflow-hidden group bg-white border border-slate-200">
           <div className="flex items-center justify-between">
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider font-mono">
               Credential Breaches
@@ -158,12 +158,12 @@ export const DashboardPage: React.FC<DashboardProps> = ({ health, onNavigate }) 
         </div>
 
         {/* Metric 3 */}
-        <div className="card-2d p-5 relative overflow-hidden group bg-white border-2 border-slate-900">
+        <div className="card-pro p-5 relative overflow-hidden group bg-white border border-slate-200">
           <div className="flex items-center justify-between">
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider font-mono">
               Median P50 Latency
             </span>
-            <span className="badge-2d bg-amber-100 text-amber-800 border-slate-900 text-[10px] px-2 py-0.5 rounded font-mono">
+            <span className="badge-2d bg-amber-50 text-amber-700 border-amber-200 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">
               REAL-TIME
             </span>
           </div>
@@ -171,26 +171,26 @@ export const DashboardPage: React.FC<DashboardProps> = ({ health, onNavigate }) 
             <span className="text-3xl font-black font-mono text-amber-600">48.2 ms</span>
             <span className="text-xs text-slate-500 font-mono font-bold">Overhead</span>
           </div>
-          <p className="text-xs text-slate-500 mt-1 font-medium">
+          <p className="text-xs text-slate-500 mt-1 font-medium font-sans">
             Deterministic multi-stage verification in &lt; 50ms
           </p>
         </div>
 
         {/* Metric 4 */}
-        <div className="card-2d p-5 relative overflow-hidden group bg-white border-2 border-slate-900">
+        <div className="card-pro p-5 relative overflow-hidden group bg-white border border-slate-200">
           <div className="flex items-center justify-between">
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider font-mono">
               Defense Lifecycle
             </span>
-            <span className="badge-2d bg-blue-100 text-blue-800 border-slate-900 text-[10px] px-2 py-0.5 rounded font-mono">
+            <span className="badge-2d bg-blue-50 text-blue-700 border-blue-200 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">
               ARMED
             </span>
           </div>
           <div className="mt-3 flex items-baseline space-x-2">
-            <span className="text-3xl font-black font-mono text-blue-600">6 Layers</span>
+            <span className="text-3xl font-black font-mono text-indigo-600">6 Layers</span>
             <span className="text-xs text-slate-500 font-mono font-bold">L0 to L5</span>
           </div>
-          <p className="text-xs text-slate-500 mt-1 font-medium">
+          <p className="text-xs text-slate-500 mt-1 font-medium font-sans">
             Ingestion, vector index, query, and egress protection
           </p>
         </div>

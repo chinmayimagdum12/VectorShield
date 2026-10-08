@@ -625,17 +625,17 @@ export const VectorExplorerPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Forensic Intelligence Node Inspector */}
-          <div className="card-pro p-6 bg-white flex flex-col justify-between">
+          {/* Right: Forensic Intelligence Node Inspector (Sleek Dark Console) */}
+          <div className="card-dark p-6 bg-[#0B1120] text-slate-100 border border-slate-800 flex flex-col justify-between shadow-2xl">
             <div>
               {/* Header */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 mb-4">
+              <div className="flex items-center justify-between pb-3.5 border-b border-slate-800 mb-4">
                 <div className="flex items-center space-x-2">
-                  <div className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
+                  <div className="w-7 h-7 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center text-indigo-400">
                     <Target className="w-4 h-4" />
                   </div>
-                  <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider font-mono">
-                    Vector Node Inspector
+                  <span className="text-xs font-extrabold text-white uppercase tracking-wider font-mono">
+                    Forensic Node Inspector
                   </span>
                 </div>
 
@@ -643,8 +643,8 @@ export const VectorExplorerPage: React.FC = () => {
                   <span
                     className={`badge-2d text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold ${
                       selectedPoint.is_poisoned
-                        ? 'bg-rose-50 text-rose-700 border-rose-200'
-                        : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                        ? 'bg-rose-950/80 text-rose-400 border-rose-700'
+                        : 'bg-emerald-950/80 text-emerald-400 border-emerald-700'
                     }`}
                   >
                     {selectedPoint.is_poisoned ? 'MALICIOUS ADVERSARIAL' : 'VERIFIED IN KNOWLEDGE'}
@@ -655,58 +655,58 @@ export const VectorExplorerPage: React.FC = () => {
               {selectedPoint ? (
                 <div className="space-y-4 text-xs font-mono">
                   {/* Node Identity Card */}
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
+                  <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-500">Node Identifier:</span>
+                      <span className="text-slate-400">Node Identifier:</span>
                       <div className="flex items-center space-x-1.5">
-                        <span className="font-bold text-slate-900 font-mono">{selectedPoint.id}</span>
+                        <span className="font-bold text-white font-mono">{selectedPoint.id}</span>
                         <button
                           onClick={() => handleCopyId(selectedPoint.id)}
-                          className="p-1 rounded text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors"
+                          className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
                           title="Copy ID"
                         >
-                          {copiedId ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                          {copiedId ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                         </button>
                       </div>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-500">Cluster Group:</span>
-                      <span className="text-indigo-600 font-extrabold">{selectedPoint.cluster}</span>
+                      <span className="text-slate-400">Cluster Group:</span>
+                      <span className="text-indigo-400 font-extrabold">{selectedPoint.cluster}</span>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-500">Provenance Tier:</span>
-                      <span className="badge-2d bg-white text-slate-800 border-slate-200 text-[10px] px-2 py-0.5 rounded font-bold">
+                      <span className="text-slate-400">Provenance Tier:</span>
+                      <span className="badge-2d bg-slate-800 text-slate-200 border-slate-700 text-[10px] px-2 py-0.5 rounded font-bold">
                         {selectedPoint.trust_tier}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-500">PCA Coordinates:</span>
-                      <span className="text-slate-800 font-bold">
+                      <span className="text-slate-400">PCA Coordinates:</span>
+                      <span className="text-slate-200 font-bold">
                         ({selectedPoint.x.toFixed(2)}, {selectedPoint.y.toFixed(2)})
                       </span>
                     </div>
                   </div>
 
                   {/* Risk Score Progress Bar */}
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
                     <div className="flex justify-between items-center mb-1.5">
-                      <span className="text-slate-600 font-bold text-[11px] uppercase">Adversarial Threat Score:</span>
+                      <span className="text-slate-400 font-bold text-[11px] uppercase">Adversarial Threat Score:</span>
                       <span
                         className={`font-black text-sm ${
-                          selectedPoint.risk_score >= 65 ? 'text-rose-600' : 'text-emerald-600'
+                          selectedPoint.risk_score >= 65 ? 'text-rose-400' : 'text-emerald-400'
                         }`}
                       >
                         {selectedPoint.risk_score.toFixed(1)} / 100
                       </span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
                       <div
                         style={{ width: `${Math.max(4, selectedPoint.risk_score)}%` }}
                         className={`h-full rounded-full transition-all ${
-                          selectedPoint.risk_score >= 65 ? 'bg-rose-500' : 'bg-emerald-500'
+                          selectedPoint.risk_score >= 65 ? 'bg-rose-500 shadow-[0_0_8px_#EF4444]' : 'bg-emerald-500 shadow-[0_0_8px_#10B981]'
                         }`}
                       />
                     </div>
@@ -714,22 +714,22 @@ export const VectorExplorerPage: React.FC = () => {
 
                   {/* Nearest Semantic Neighbors */}
                   {nearestNeighbors.length > 0 && (
-                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                      <div className="text-slate-600 font-bold text-[11px] uppercase mb-2 flex items-center justify-between">
+                    <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                      <div className="text-slate-400 font-bold text-[11px] uppercase mb-2 flex items-center justify-between">
                         <span>Nearest Neighbors (2D Cosine):</span>
-                        <span className="text-[10px] text-slate-400">Euclidean Proximity</span>
+                        <span className="text-[10px] text-slate-500">Euclidean Proximity</span>
                       </div>
                       <div className="space-y-1.5">
                         {nearestNeighbors.map((nb, i) => (
                           <div
                             key={i}
                             onClick={() => setSelectedPoint(nb.point)}
-                            className="flex items-center justify-between p-1.5 rounded bg-white border border-slate-200 hover:border-indigo-400 cursor-pointer transition-colors"
+                            className="flex items-center justify-between p-1.5 rounded bg-slate-950 border border-slate-800 hover:border-indigo-500 cursor-pointer transition-colors"
                           >
-                            <span className="font-mono text-[11px] text-slate-700 truncate max-w-[140px]">
+                            <span className="font-mono text-[11px] text-slate-300 truncate max-w-[140px]">
                               {nb.point.id}
                             </span>
-                            <span className="badge-2d bg-indigo-50 text-indigo-700 border-indigo-200 text-[9px] px-1.5 py-0.2 rounded font-bold">
+                            <span className="badge-2d bg-indigo-950/80 text-indigo-300 border-indigo-700/60 text-[9px] px-1.5 py-0.2 rounded font-bold">
                               Sim: {(nb.sim * 100).toFixed(0)}%
                             </span>
                           </div>
@@ -740,19 +740,19 @@ export const VectorExplorerPage: React.FC = () => {
 
                   {/* Embedded Chunk Context Reader */}
                   <div>
-                    <div className="flex items-center justify-between text-slate-600 font-bold mb-1.5 uppercase text-[11px]">
+                    <div className="flex items-center justify-between text-slate-400 font-bold mb-1.5 uppercase text-[11px]">
                       <span>Chunk Text Payload:</span>
-                      <span className="text-slate-400 font-normal">
+                      <span className="text-slate-500 font-normal">
                         {selectedPoint.text.length} chars &bull; {selectedPoint.text.split(/\s+/).filter(Boolean).length} tokens
                       </span>
                     </div>
-                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-sans leading-relaxed text-xs max-h-[140px] overflow-y-auto shadow-inner select-all">
+                    <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 font-sans leading-relaxed text-xs max-h-[140px] overflow-y-auto select-all">
                       {selectedPoint.text}
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-20 text-slate-400 text-xs font-mono bg-slate-50 rounded-xl border border-dashed border-slate-200">
+                <div className="text-center py-20 text-slate-500 text-xs font-mono bg-slate-950 rounded-xl border border-dashed border-slate-800">
                   Click on any vector node in the 2D scatter space to inspect metadata.
                 </div>
               )}
@@ -760,16 +760,16 @@ export const VectorExplorerPage: React.FC = () => {
 
             {/* Quick Actions Footer */}
             {selectedPoint && (
-              <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
+              <div className="mt-5 pt-3.5 border-t border-slate-800 flex items-center justify-between gap-2">
                 <button
                   onClick={() => alert(`Node ${selectedPoint.id} queued for adversarial validation.`)}
-                  className="btn-2d px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-1.5"
+                  className="btn-2d px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-1.5 bg-slate-900 border-slate-700 text-white hover:bg-slate-800"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                  <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
                   <span>Send to Duel</span>
                 </button>
 
-                <div className="text-[10px] text-slate-400 font-mono">
+                <div className="text-[10px] text-slate-500 font-mono">
                   Engine: ChromaDB + NumPy Fallback
                 </div>
               </div>
