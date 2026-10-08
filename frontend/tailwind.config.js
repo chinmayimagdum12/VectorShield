@@ -7,25 +7,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        cyber: {
-          900: '#070B13',
-          800: '#0B111E',
-          700: '#111B2E',
-          600: '#18253D',
-          border: '#1E2D48',
-          accent: '#10B981',
-          crimson: '#EF4444',
-          amber: '#F59E0B',
-          neon: '#06B6D4'
+        brand: {
+          50: '#EEF2FF',
+          100: '#E0E7FF',
+          200: '#C7D2FE',
+          300: '#A5B4FC',
+          400: '#818CF8',
+          500: '#6366F1',
+          600: '#4F46E5',
+          700: '#4338CA',
+          800: '#3730A3',
+          900: '#312E81',
+          950: '#1E1B4B'
         }
       },
       boxShadow: {
-        '2d-sm': '2px 2px 0px 0px rgba(0, 0, 0, 1)',
-        '2d': '4px 4px 0px 0px rgba(0, 0, 0, 1)',
-        '2d-emerald': '4px 4px 0px 0px rgba(16, 185, 129, 0.4)',
-        '2d-crimson': '4px 4px 0px 0px rgba(239, 68, 68, 0.4)',
-        '2d-amber': '4px 4px 0px 0px rgba(245, 158, 11, 0.4)',
-        '2d-cyan': '4px 4px 0px 0px rgba(6, 182, 212, 0.4)',
+        '2d-sm': '2px 2px 0px 0px #0F172A',
+        '2d': '3px 3px 0px 0px #0F172A',
+        '2d-lg': '5px 5px 0px 0px #0F172A',
+        '2d-indigo': '4px 4px 0px 0px #4338CA',
+        '2d-emerald': '4px 4px 0px 0px #047857',
+        '2d-rose': '4px 4px 0px 0px #BE123C',
+        '2d-amber': '4px 4px 0px 0px #B45309',
+        'soft': '0 2px 10px -2px rgba(15, 23, 42, 0.06), 0 10px 25px -5px rgba(15, 23, 42, 0.04)',
       }
     },
   },

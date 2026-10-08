@@ -14,7 +14,8 @@ import {
   Zap,
   Activity,
   AlertOctagon,
-  Sparkles
+  Sparkles,
+  Info
 } from 'lucide-react';
 import { sound } from '../components/SoundEffects';
 
@@ -113,8 +114,6 @@ export const PipelineXRayPage: React.FC = () => {
     { id: 'BENIGN_CORPUS', name: 'Clean Doc: "Q3 Financial Performance Report"', stopAt: 6, action: 'L0-L5 VERIFIED & RETURNED CLEAN' },
   ];
 
-  const currentPayloadInfo = tracerPayloads.find((p) => p.id === selectedTracerPayload) || tracerPayloads[0];
-
   useEffect(() => {
     let interval: any;
     if (tracerRunning) {
@@ -153,19 +152,23 @@ export const PipelineXRayPage: React.FC = () => {
   const activeStage = stages.find((s) => s.id === activeStageId) || stages[1];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Title Header */}
-      <div className="card-2d p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="card-2d p-6 bg-white flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
-            <GitFork className="w-5 h-5 text-emerald-400" />
-            <h2 className="text-lg font-extrabold text-white font-mono tracking-tight">
-              PIPELINE X-RAY &bull; LIVE PACKET TRACER &amp; DEBUGGER
-            </h2>
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-lg bg-indigo-50 border-2 border-indigo-600 flex items-center justify-center text-indigo-600 shadow-[2px_2px_0px_#4F46E5]">
+              <GitFork className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-xl font-extrabold text-slate-900 font-mono tracking-tight">
+                PIPELINE X-RAY &bull; LIVE PACKET TRACER &amp; DEBUGGER
+              </h2>
+              <p className="text-xs text-slate-500 font-sans">
+                Observe data packets navigating the six defense layers with real-time inspection verdicts and latency profiling.
+              </p>
+            </div>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
-            Observe data packets navigating the six defense layers with real-time inspection verdicts and latency profiling.
-          </p>
         </div>
 
         {/* Tracer Action Controls */}
@@ -173,7 +176,7 @@ export const PipelineXRayPage: React.FC = () => {
           <button
             onClick={handleStartTracer}
             disabled={tracerRunning}
-            className="btn-2d-primary px-4 py-2 rounded text-xs flex items-center space-x-1.5"
+            className="btn-2d-primary px-4 py-2.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-1.5 shadow-[3px_3px_0px_#0F172A] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
             <Play className={`w-3.5 h-3.5 fill-current ${tracerRunning ? 'animate-spin' : ''}`} />
             <span>Auto-Trace Packet</span>
@@ -181,32 +184,32 @@ export const PipelineXRayPage: React.FC = () => {
           <button
             onClick={handleStepForward}
             disabled={tracerRunning || packetTracerStep >= 5}
-            className="btn-2d px-3 py-2 rounded text-xs flex items-center space-x-1"
+            className="btn-2d px-3.5 py-2.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-1 shadow-[2px_2px_0px_#0F172A]"
           >
             <span>Step &rarr;</span>
           </button>
           <button
             onClick={handleResetTracer}
-            className="btn-2d px-2.5 py-2 rounded text-xs"
+            className="btn-2d px-3 py-2.5 rounded-lg text-xs shadow-[2px_2px_0px_#0F172A]"
             title="Reset Tracer"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
+            <RotateCcw className="w-3.5 h-3.5 text-slate-700" />
           </button>
         </div>
       </div>
 
       {/* Packet Tracer Control Bar */}
-      <div className="card-2d p-4 bg-slate-900/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
-        <div className="flex items-center space-x-2">
-          <Activity className="w-4 h-4 text-cyan-400 animate-pulse" />
-          <span className="text-slate-400 font-bold uppercase text-[11px]">Test Packet:</span>
+      <div className="card-2d p-4 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+        <div className="flex items-center space-x-2.5">
+          <Activity className="w-4 h-4 text-indigo-600 animate-pulse" />
+          <span className="text-slate-700 font-extrabold uppercase text-[11px]">Select Test Packet:</span>
           <select
             value={selectedTracerPayload}
             onChange={(e) => {
               setSelectedTracerPayload(e.target.value);
               handleResetTracer();
             }}
-            className="px-2.5 py-1 rounded bg-slate-950 border border-slate-700 text-xs text-white"
+            className="px-3 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-xs font-bold text-slate-900 focus:outline-none focus:border-indigo-600 shadow-sm"
           >
             {tracerPayloads.map((p) => (
               <option key={p.id} value={p.id}>
@@ -217,27 +220,27 @@ export const PipelineXRayPage: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-2 text-[11px]">
-          <span className="text-slate-400">Tracer State:</span>
+          <span className="text-slate-600 font-bold">Tracer Status:</span>
           <span
-            className={`font-bold px-2 py-0.5 rounded ${
+            className={`font-bold px-2.5 py-1 rounded-lg border-2 text-xs font-mono ${
               packetTracerStep === -1
-                ? 'bg-slate-800 text-slate-400'
+                ? 'bg-slate-200 text-slate-700 border-slate-400'
                 : packetTracerStep === 5
-                ? 'bg-emerald-950 text-emerald-300 border border-emerald-700'
-                : 'bg-cyan-950 text-cyan-300 border border-cyan-700 animate-pulse'
+                ? 'bg-emerald-100 text-emerald-900 border-emerald-500 shadow-[2px_2px_0px_#059669]'
+                : 'bg-indigo-100 text-indigo-900 border-indigo-600 shadow-[2px_2px_0px_#4F46E5] animate-pulse'
             }`}
           >
             {packetTracerStep === -1
               ? 'IDLE &bull; READY'
               : packetTracerStep === 5
-              ? 'TRACE FINISHED'
+              ? 'TRACE COMPLETED'
               : `INSPECTING AT ${stages[packetTracerStep].id}`}
           </span>
         </div>
       </div>
 
       {/* Visual Multi-Stage Flow Diagram with Moving Packet */}
-      <div className="card-2d p-6 bg-slate-900/40 relative overflow-hidden">
+      <div className="card-2d p-6 bg-white relative overflow-hidden">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
           {stages.map((stg, idx) => {
             const Icon = stg.icon;
@@ -252,47 +255,53 @@ export const PipelineXRayPage: React.FC = () => {
                   sound.playClick();
                   setActiveStageId(stg.id);
                 }}
-                className={`p-4 rounded-lg text-left transition-all relative border-2 ${
+                className={`p-4 rounded-xl text-left transition-all relative border-2 cursor-pointer ${
                   hasPacketHere
-                    ? 'border-cyan-400 bg-cyan-950/60 shadow-[0_0_15px_rgba(6,182,212,0.6)] ring-2 ring-cyan-400 scale-105 z-20'
+                    ? 'border-indigo-600 bg-indigo-50 shadow-[4px_4px_0px_#4F46E5] scale-105 z-20'
                     : isSelected
-                    ? 'border-emerald-500 bg-emerald-950/40 shadow-[3px_3px_0px_#10B981]'
+                    ? 'border-emerald-600 bg-emerald-50/70 shadow-[3px_3px_0px_#059669]'
                     : wasPassed
-                    ? 'border-emerald-900/60 bg-emerald-950/20 text-slate-300'
-                    : 'border-slate-800 bg-[#0B1220] hover:border-slate-700'
+                    ? 'border-emerald-300 bg-emerald-50/30 text-slate-700'
+                    : 'border-slate-300 bg-slate-50/70 hover:border-slate-400 hover:bg-slate-100'
                 }`}
               >
                 {/* Glowing packet ping dot */}
                 {hasPacketHere && (
-                  <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-cyan-400 flex items-center justify-center shadow-[0_0_8px_#06B6D4]">
-                    <span className="w-2 h-2 rounded-full bg-black animate-ping" />
+                  <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center shadow-[0_0_8px_#4F46E5]">
+                    <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping" />
                   </span>
                 )}
 
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs font-bold text-emerald-400">{stg.id}</span>
-                  <span className="text-[9px] font-mono text-slate-400 bg-slate-800 px-1 rounded">
+                  <span className={`font-mono text-xs font-extrabold ${isSelected || hasPacketHere ? 'text-indigo-600' : 'text-slate-800'}`}>
+                    {stg.id}
+                  </span>
+                  <span className="text-[9px] font-mono text-slate-600 bg-slate-200/80 px-1.5 py-0.5 rounded font-bold">
                     {stg.phase}
                   </span>
                 </div>
 
-                <div className="p-2 rounded bg-slate-900/80 w-fit mb-2">
-                  <Icon className={`w-5 h-5 ${isSelected || hasPacketHere ? 'text-emerald-400' : 'text-slate-400'}`} />
+                <div className={`p-2.5 rounded-lg w-fit mb-2.5 border ${
+                  isSelected || hasPacketHere
+                    ? 'bg-indigo-100 border-indigo-300 text-indigo-700'
+                    : 'bg-white border-slate-200 text-slate-700'
+                }`}>
+                  <Icon className="w-5 h-5" />
                 </div>
 
-                <div className="text-xs font-bold text-slate-200 truncate">{stg.name.split(':')[1]}</div>
-                <div className="text-[10px] text-slate-400 mt-1 font-mono">{stg.latencyP50}</div>
+                <div className="text-xs font-extrabold text-slate-900 truncate">{stg.name.split(':')[1]}</div>
+                <div className="text-[10px] text-slate-500 mt-1 font-mono">{stg.latencyP50}</div>
 
                 {/* Packet step badge */}
                 {hasPacketHere && (
-                  <div className="mt-2 text-[9px] font-mono font-bold text-cyan-300 uppercase tracking-wider bg-black/60 px-1.5 py-0.5 rounded border border-cyan-800">
+                  <div className="mt-2 text-[9px] font-mono font-extrabold text-indigo-900 uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-indigo-400 shadow-sm">
                     &gt; PACKET ACTIVE
                   </div>
                 )}
 
                 {/* Arrow connector */}
                 {idx < stages.length - 1 && (
-                  <div className="hidden md:block absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 text-slate-600">
+                  <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-slate-400 font-bold">
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 )}
@@ -303,86 +312,88 @@ export const PipelineXRayPage: React.FC = () => {
 
         {/* Live Tracer Verdict Banner when stepped */}
         {packetTracerStep >= 0 && (
-          <div className="mt-6 p-4 rounded-lg bg-black/80 border-2 border-slate-700 font-mono text-xs text-slate-300 space-y-1">
-            <div className="flex justify-between items-center text-slate-400 pb-1 border-b border-slate-800 text-[11px]">
-              <span>PACKET TRACE DIAGNOSTICS LOG:</span>
-              <span className="text-cyan-400">Step {packetTracerStep + 1} of 6 &bull; {stages[packetTracerStep].name}</span>
+          <div className="mt-6 p-4 rounded-xl bg-slate-900 border-2 border-slate-950 font-mono text-xs text-slate-200 space-y-1 shadow-[4px_4px_0px_#0F172A] animate-fade-in">
+            <div className="flex justify-between items-center text-slate-400 pb-1.5 border-b border-slate-800 text-[11px]">
+              <span className="font-bold text-indigo-400">PACKET TRACE DIAGNOSTICS LOG:</span>
+              <span className="text-emerald-400 font-bold">Step {packetTracerStep + 1} of 6 &bull; {stages[packetTracerStep].name}</span>
             </div>
-            <div className="pt-1 flex items-center justify-between">
+            <div className="pt-1.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="text-slate-500">&gt; Layer Verdict: </span>
+                <span className="text-slate-400">&gt; Layer Verdict: </span>
                 <span className="text-white font-bold">{stages[packetTracerStep].tagline}</span>
               </div>
-              <span className="text-emerald-400 font-bold">{stages[packetTracerStep].latencyP50} verified</span>
+              <span className="text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800 self-start sm:self-auto">
+                {stages[packetTracerStep].latencyP50} verified
+              </span>
             </div>
           </div>
         )}
       </div>
 
       {/* Deep-Dive Inspection Card for Selected Stage */}
-      <div className="card-2d p-6 border-slate-700 bg-[#0B1220]">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 rounded-lg bg-emerald-500/10 border-2 border-emerald-500 shadow-[2px_2px_0px_#10B981]">
-              <activeStage.icon className="w-6 h-6 text-emerald-400" />
+      <div className="card-2d p-6 bg-white">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b-2 border-slate-100">
+          <div className="flex items-center space-x-3.5">
+            <div className="p-3 rounded-xl bg-indigo-50 border-2 border-indigo-600 text-indigo-600 shadow-[2px_2px_0px_#4F46E5]">
+              <activeStage.icon className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="text-base font-extrabold text-white font-mono">{activeStage.name}</h3>
-                <span className="badge-2d bg-emerald-500/20 text-emerald-300 border-emerald-500 text-[10px] px-2 py-0.5 rounded font-mono">
+                <h3 className="text-base font-extrabold text-slate-900 font-mono">{activeStage.name}</h3>
+                <span className="badge-2d bg-emerald-50 text-emerald-800 border-emerald-500 text-[10px] px-2 py-0.5 rounded font-mono font-bold">
                   ACTIVE DEFENSE
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">{activeStage.tagline}</p>
+              <p className="text-xs text-slate-500 mt-0.5 font-sans">{activeStage.tagline}</p>
             </div>
           </div>
 
           <div className="flex items-center space-x-3 text-xs font-mono">
-            <div className="px-3 py-1.5 rounded bg-slate-900 border border-slate-800">
-              <span className="text-slate-400">Phase: </span>
-              <span className="text-emerald-400 font-bold">{activeStage.phase}</span>
+            <div className="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-300">
+              <span className="text-slate-500">Phase: </span>
+              <span className="text-indigo-600 font-bold">{activeStage.phase}</span>
             </div>
-            <div className="px-3 py-1.5 rounded bg-slate-900 border border-slate-800">
-              <span className="text-slate-400">Overhead: </span>
-              <span className="text-amber-400 font-bold">{activeStage.latencyP50}</span>
+            <div className="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-300">
+              <span className="text-slate-500">P50 Overhead: </span>
+              <span className="text-emerald-700 font-bold">{activeStage.latencyP50}</span>
             </div>
           </div>
         </div>
 
         {/* Description */}
-        <div className="mt-4 text-xs text-slate-300 leading-relaxed font-sans">
+        <div className="mt-4 text-xs text-slate-700 leading-relaxed font-sans bg-slate-50/60 p-4 rounded-xl border border-slate-200">
           {activeStage.description}
         </div>
 
         {/* Two-Column Detailed Mechanics */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           {/* Algorithms */}
-          <div className="p-4 rounded-lg bg-slate-900/80 border border-slate-800">
-            <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center space-x-1.5 font-mono">
-              <Zap className="w-4 h-4 text-emerald-400" />
+          <div className="p-5 rounded-xl bg-slate-50 border-2 border-slate-200">
+            <h4 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-3.5 flex items-center space-x-2 font-mono">
+              <Zap className="w-4 h-4 text-indigo-600" />
               <span>Enforced Defense Algorithms</span>
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {activeStage.algorithms.map((algo, i) => (
-                <li key={i} className="flex items-center space-x-2 text-xs text-slate-300 font-mono">
-                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>{algo}</span>
+                <li key={i} className="flex items-center space-x-2.5 text-xs text-slate-700 font-mono">
+                  <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span className="font-medium">{algo}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Threats Neutralized */}
-          <div className="p-4 rounded-lg bg-slate-900/80 border border-slate-800">
-            <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center space-x-1.5 font-mono">
-              <Shield className="w-4 h-4 text-cyan-400" />
+          <div className="p-5 rounded-xl bg-slate-50 border-2 border-slate-200">
+            <h4 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-3.5 flex items-center space-x-2 font-mono">
+              <Shield className="w-4 h-4 text-emerald-600" />
               <span>Threat Vectors Neutralized</span>
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {activeStage.threatsNeutralized.map((th, i) => (
-                <li key={i} className="flex items-center space-x-2 text-xs text-slate-300 font-mono">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
-                  <span>{th}</span>
+                <li key={i} className="flex items-center space-x-2.5 text-xs text-slate-700 font-mono">
+                  <span className="w-2 h-2 rounded-full bg-indigo-600 shrink-0" />
+                  <span className="font-medium">{th}</span>
                 </li>
               ))}
             </ul>

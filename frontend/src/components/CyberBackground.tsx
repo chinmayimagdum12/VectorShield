@@ -20,19 +20,19 @@ export const CyberBackground: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // Particle nodes
-    const particleCount = 45;
+    // Particle nodes in soft indigo and emerald
+    const particleCount = 38;
     const particles: { x: number; y: number; vx: number; vy: number; radius: number; color: string }[] = [];
 
-    const colors = ['#10B981', '#06B6D4', '#6366F1'];
+    const colors = ['#6366F1', '#4F46E5', '#10B981', '#06B6D4'];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.random() * 1.8 + 1,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        radius: Math.random() * 2 + 1.2,
         color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
@@ -40,17 +40,17 @@ export const CyberBackground: React.FC = () => {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Connect nodes with proximity lines
+      // Connect nodes with light proximity lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 140) {
+          if (dist < 130) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(16, 185, 129, ${0.12 * (1 - dist / 140)})`;
-            ctx.lineWidth = 0.75;
+            ctx.strokeStyle = `rgba(99, 102, 241, ${0.12 * (1 - dist / 130)})`;
+            ctx.lineWidth = 0.8;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
@@ -72,10 +72,9 @@ export const CyberBackground: React.FC = () => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        ctx.shadowBlur = 6;
-        ctx.shadowColor = p.color;
+        ctx.globalAlpha = 0.45;
         ctx.fill();
-        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1.0;
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -92,7 +91,7 @@ export const CyberBackground: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-40"
+      className="fixed inset-0 pointer-events-none z-0 opacity-60"
     />
   );
 };
