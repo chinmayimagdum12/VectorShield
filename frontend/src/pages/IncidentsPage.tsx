@@ -81,10 +81,11 @@ export const IncidentsPage: React.FC = () => {
           </button>
           <button
             onClick={() => handleExport('json')}
-            className="btn-2d-primary px-4 py-2.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-1.5 shadow-[3px_3px_0px_#0F172A] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            className="btn-2d-primary px-4 py-2.5 rounded-xl text-xs font-mono font-black flex items-center space-x-2 shadow-[4px_4px_0px_#4F46E5] hover:shadow-[5px_5px_0px_#6366F1] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
-            <Download className="w-4 h-4" />
-            <span>Export Forensic JSON</span>
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse ring-2 ring-cyan-400/40 shrink-0" />
+            <Download className="w-4 h-4 text-cyan-400" />
+            <span className="tracking-wide">EXPORT FORENSIC JSON</span>
           </button>
           <button
             onClick={() => { sound.playClick(); loadIncidents(); }}

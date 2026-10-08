@@ -5,7 +5,7 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #F8FAFC;
+    background-color: #FFFFFF;
     color: #0F172A;
     overflow-x: hidden;
   }
@@ -46,6 +46,7 @@
   border-radius: 0.75rem;
 }
 
+/* Secondary 2D Button */
 .btn-2d {
   border-width: 2px;
   border-color: #0F172A;
@@ -68,28 +69,34 @@
   box-shadow: 0px 0px 0px 0px #0F172A;
 }
 
-.btn-2d-primary {
+/* MAIN FUNCTION BUTTON: Sleek Dark Obsidian with Vibrant 2D Electric Shadow & Neon Accent */
+.btn-2d-primary, .btn-2d-dark {
   border-width: 2px;
-  border-color: #1E1B4B;
-  background-color: #4F46E5;
+  border-color: #0F172A;
+  background-color: #0F172A;
   color: #FFFFFF;
-  font-weight: 700;
-  box-shadow: 3px 3px 0px 0px #1E1B4B;
+  font-weight: 800;
+  box-shadow: 4px 4px 0px 0px #4F46E5;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.btn-2d-primary:hover {
-  background-color: #4338CA;
-  box-shadow: 4px 4px 0px 0px #1E1B4B;
-  transform: translateY(-1px);
+.btn-2d-primary:hover, .btn-2d-dark:hover {
+  background-color: #020617;
+  box-shadow: 5px 5px 0px 0px #6366F1;
+  transform: translateY(-2px);
 }
 
-.btn-2d-primary:active {
+.btn-2d-primary:active, .btn-2d-dark:active {
   transform: translate(2px, 2px);
-  box-shadow: 0px 0px 0px 0px #1E1B4B;
+  box-shadow: 1px 1px 0px 0px #4F46E5;
 }
 
+/* Green Action Button */
 .btn-2d-success {
   border-width: 2px;
   border-color: #064E3B;
@@ -112,6 +119,7 @@
   box-shadow: 0px 0px 0px 0px #064E3B;
 }
 
+/* Danger Action Button */
 .btn-2d-danger {
   border-width: 2px;
   border-color: #4C0519;
@@ -146,5 +154,5 @@
 /* Subtle clean dot grid background */
 .light-dot-grid {
   background-size: 24px 24px;
-  background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
+  background-image: radial-gradient(circle, #E2E8F0 1px, transparent 1px);
 }

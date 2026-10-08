@@ -87,22 +87,23 @@ export const PolicyStudioPage: React.FC = () => {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="btn-2d-primary px-6 py-2.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-2 min-w-[190px] justify-center shadow-[3px_3px_0px_#0F172A] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          className="btn-2d-primary px-6 py-3 rounded-xl text-xs font-mono font-black flex items-center space-x-2.5 min-w-[210px] justify-center shadow-[4px_4px_0px_#4F46E5] hover:shadow-[5px_5px_0px_#6366F1] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
         >
           {saving ? (
             <>
-              <RefreshCw className="w-4 h-4 animate-spin text-white" />
-              <span>Deploying Rules...</span>
+              <RefreshCw className="w-4 h-4 animate-spin text-indigo-400" />
+              <span className="tracking-wide">DEPLOYING RULES...</span>
             </>
           ) : saveSuccess ? (
             <>
-              <CheckCircle className="w-4 h-4 text-emerald-300" />
-              <span>DEPLOYED &bull; ACTIVE</span>
+              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              <span className="tracking-wide">DEPLOYED &bull; ACTIVE</span>
             </>
           ) : (
             <>
-              <Save className="w-4 h-4 text-white" />
-              <span>SAVE &amp; DEPLOY POLICY</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ring-2 ring-emerald-400/40 shrink-0" />
+              <Save className="w-4 h-4 text-emerald-400" />
+              <span className="tracking-wide">SAVE &amp; DEPLOY POLICY</span>
             </>
           )}
         </button>

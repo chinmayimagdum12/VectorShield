@@ -79,17 +79,18 @@ export const BenchmarkPage: React.FC = () => {
         <button
           onClick={handleRunAll}
           disabled={running}
-          className="btn-2d-primary px-6 py-2.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-2 shadow-[3px_3px_0px_#0F172A] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          className="btn-2d-primary px-6 py-3 rounded-xl text-xs font-mono font-black flex items-center space-x-2.5 shadow-[4px_4px_0px_#4F46E5] hover:shadow-[5px_5px_0px_#6366F1] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
         >
           {running ? (
             <>
-              <RefreshCw className="w-4 h-4 animate-spin text-white" />
-              <span>Running Suite (C0-C7)...</span>
+              <RefreshCw className="w-4 h-4 animate-spin text-indigo-400" />
+              <span className="tracking-wide">RUNNING SUITE (C0-C7)...</span>
             </>
           ) : (
             <>
-              <Play className="w-4 h-4 fill-current text-white" />
-              <span>RUN FULL ABLATION GRID</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ring-2 ring-emerald-400/40 shrink-0" />
+              <Play className="w-3.5 h-3.5 fill-current text-emerald-400" />
+              <span className="tracking-wide">RUN FULL ABLATION GRID</span>
             </>
           )}
         </button>

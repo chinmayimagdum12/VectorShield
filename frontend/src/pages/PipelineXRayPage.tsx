@@ -176,10 +176,11 @@ export const PipelineXRayPage: React.FC = () => {
           <button
             onClick={handleStartTracer}
             disabled={tracerRunning}
-            className="btn-2d-primary px-4 py-2.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-1.5 shadow-[3px_3px_0px_#0F172A] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            className="btn-2d-primary px-4 py-2.5 rounded-xl text-xs font-mono font-black flex items-center space-x-2 shadow-[4px_4px_0px_#4F46E5] hover:shadow-[5px_5px_0px_#6366F1] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
-            <Play className={`w-3.5 h-3.5 fill-current ${tracerRunning ? 'animate-spin' : ''}`} />
-            <span>Auto-Trace Packet</span>
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse ring-2 ring-cyan-400/40 shrink-0" />
+            <Play className={`w-3.5 h-3.5 fill-current text-cyan-400 ${tracerRunning ? 'animate-spin' : ''}`} />
+            <span className="tracking-wide">AUTO-TRACE PACKET</span>
           </button>
           <button
             onClick={handleStepForward}

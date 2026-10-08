@@ -64,8 +64,8 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070D18] text-slate-100 flex flex-col font-sans relative selection:bg-emerald-500 selection:text-black">
-      {/* Animated Neural Mesh Background */}
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans relative selection:bg-slate-900 selection:text-white">
+      {/* Animated Clean Particle Mesh Background */}
       <CyberBackground />
 
       {/* Global Security Header */}
@@ -92,23 +92,25 @@ export function App() {
         {activeTab === 'policies' && <PolicyStudioPage />}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t-2 border-slate-800 bg-[#070D18]/95 py-4 px-6 text-xs text-slate-400 font-mono mt-auto relative z-10 backdrop-blur-md">
+      {/* Clean White 2D Footer */}
+      <footer className="border-t-2 border-slate-900 bg-white py-4 px-6 text-xs text-slate-600 font-mono mt-auto relative z-10 shadow-[0_-4px_10px_rgba(15,23,42,0.03)]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>VectorShield v1.0.0 &bull; Multi-Layered Defense &amp; Evaluation Platform</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse border border-slate-900" />
+            <span className="font-bold text-slate-900">VectorShield Enterprise Defense Platform</span>
+            <span className="text-slate-400">&bull;</span>
+            <span className="text-slate-500">v1.0.0 Production</span>
           </div>
-          <div className="flex items-center space-x-4 text-slate-400">
-            <span>OWASP Top 10 for LLM: LLM01 &amp; LLM07 Hardened</span>
-            <span>&bull;</span>
+          <div className="flex items-center space-x-4 text-slate-600">
+            <span className="font-semibold">OWASP Top 10 for LLM: LLM01 &amp; LLM07 Hardened</span>
+            <span className="text-slate-300">&bull;</span>
             <a
               href="http://localhost:8000/docs"
               target="_blank"
               rel="noreferrer"
-              className="text-emerald-400 hover:underline"
+              className="text-indigo-600 font-bold hover:underline"
             >
-              OpenAPI /docs
+              Interactive API /docs &rarr;
             </a>
           </div>
         </div>

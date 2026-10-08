@@ -107,10 +107,11 @@ export const DashboardPage: React.FC<DashboardProps> = ({ health, onNavigate }) 
             sound.playClick();
             setShowReportModal(true);
           }}
-          className="btn-2d px-3 py-1 rounded-lg text-[11px] font-mono shrink-0 flex items-center space-x-1"
+          className="btn-2d-primary px-3.5 py-1.5 rounded-lg text-[11px] font-mono shrink-0 flex items-center space-x-1.5 shadow-[3px_3px_0px_#4F46E5] hover:shadow-[4px_4px_0px_#6366F1] active:translate-x-0.5 active:translate-y-0.5 transition-all"
         >
-          <FileCheck2 className="w-3.5 h-3.5 text-indigo-600" />
-          <span>Audit Report</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+          <FileCheck2 className="w-3.5 h-3.5 text-indigo-400" />
+          <span className="font-bold">Audit Report</span>
         </button>
       </div>
 
@@ -566,10 +567,11 @@ export const DashboardPage: React.FC<DashboardProps> = ({ health, onNavigate }) 
                     a.download = `VectorShield_Executive_Audit_${Date.now()}.json`;
                     a.click();
                   }}
-                  className="btn-2d-primary px-4 py-2 rounded-lg text-xs flex items-center space-x-1.5"
+                  className="btn-2d-primary px-4 py-2 rounded-xl text-xs font-mono font-black flex items-center space-x-2 shadow-[4px_4px_0px_#4F46E5] hover:shadow-[5px_5px_0px_#6366F1] active:translate-x-0.5 active:translate-y-0.5 transition-all"
                 >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download Report JSON</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                  <Download className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="tracking-wide">DOWNLOAD REPORT JSON</span>
                 </button>
               </div>
             </div>

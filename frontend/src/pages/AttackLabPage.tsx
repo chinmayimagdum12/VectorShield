@@ -103,17 +103,18 @@ export const AttackLabPage: React.FC = () => {
         <button
           onClick={runDuel}
           disabled={loading}
-          className="btn-2d-primary px-6 py-3 rounded-lg text-xs font-bold font-mono flex items-center justify-center space-x-2 min-w-[190px] shadow-[4px_4px_0px_#0F172A] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          className="btn-2d-primary px-6 py-3 rounded-xl text-xs font-black font-mono flex items-center justify-center space-x-2.5 min-w-[210px] shadow-[4px_4px_0px_#4F46E5] hover:shadow-[5px_5px_0px_#6366F1] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
         >
           {loading ? (
             <>
-              <RefreshCw className="w-4 h-4 animate-spin text-white" />
-              <span>Simulating Duel...</span>
+              <RefreshCw className="w-4 h-4 animate-spin text-indigo-400" />
+              <span className="tracking-wide">SIMULATING DUEL...</span>
             </>
           ) : (
             <>
-              <Play className="w-4 h-4 fill-current text-white" />
-              <span>EXECUTE DUEL TEST</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ring-2 ring-emerald-400/40 shrink-0" />
+              <Play className="w-3.5 h-3.5 fill-current text-emerald-400" />
+              <span className="tracking-wide">EXECUTE DUEL TEST</span>
             </>
           )}
         </button>
