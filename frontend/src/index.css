@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #070B13;
+    color: #F1F5F9;
+    overflow-x: hidden;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* 2D Neo-Cyber & Tactile Styles */
+.btn-2d {
+  border-width: 2px;
+  border-color: #334155;
+  background-color: #0F172A;
+  color: #F8FAFC;
+  font-weight: 600;
+  box-shadow: 3px 3px 0px 0px #000000;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-2d:hover {
+  border-color: #10B981;
+  color: #10B981;
+  box-shadow: 3px 3px 0px 0px rgba(16, 185, 129, 0.6);
+}
+
+.btn-2d:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px 0px #000000;
+}
+
+.btn-2d-primary {
+  border-width: 2px;
+  border-color: #10B981;
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #34D399;
+  font-weight: 700;
+  box-shadow: 3px 3px 0px 0px #10B981;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-2d-primary:hover {
+  background-color: #10B981;
+  color: #022c22;
+  box-shadow: 3px 3px 0px 0px #059669;
+}
+
+.btn-2d-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px 0px #059669;
+}
+
+.btn-2d-danger {
+  border-width: 2px;
+  border-color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #F87171;
+  font-weight: 700;
+  box-shadow: 3px 3px 0px 0px #EF4444;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-2d-danger:hover {
+  background-color: #EF4444;
+  color: #FFFFFF;
+  box-shadow: 3px 3px 0px 0px #B91C1C;
+}
+
+.btn-2d-danger:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px 0px #B91C1C;
+}
+
+.card-2d {
+  border-width: 2px;
+  border-color: #1E293B;
+  background-color: rgba(15, 23, 42, 0.85);
+  box-shadow: 4px 4px 0px 0px #020617;
+  border-radius: 0.5rem;
+}
+
+.card-2d-accent {
+  border-width: 2px;
+  border-color: #10B981;
+  background-color: rgba(15, 23, 42, 0.95);
+  box-shadow: 4px 4px 0px 0px rgba(16, 185, 129, 0.4);
+  border-radius: 0.5rem;
+}
+
+.badge-2d {
+  border-width: 1px;
+  font-weight: 700;
+  box-shadow: 2px 2px 0px 0px #000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Subtle cybersecurity grid background */
+.cyber-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
+}

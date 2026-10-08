@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vectorshield"
+version = "1.0.0"
+description = "Multi-Layered Defense & Evaluation Platform for RAG Applications"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "pydantic>=2.6.0",
+    "chromadb>=0.4.24",
+    "sqlalchemy>=2.0.28",
+    "numpy>=1.26.4",
+    "scikit-learn>=1.4.0",
+    "pypdf>=4.1.0",
+    "python-docx>=1.1.0"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+python_files = "test_*.py"
+pythonpath = ["backend"]
+
