@@ -35,8 +35,8 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab,
   };
 
   return (
-    <div className="border-b-2 border-slate-900 bg-white/95 px-6 pt-3 pb-0 sticky top-[65px] z-40 backdrop-blur-md shadow-sm">
-      <div className="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto scrollbar-none py-1">
+    <div className="border-b border-slate-200/80 bg-white/95 px-6 py-2 sticky top-[57px] z-40 backdrop-blur-md shadow-xs">
+      <div className="max-w-7xl mx-auto flex items-center space-x-1.5 overflow-x-auto scrollbar-none py-1">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -44,19 +44,19 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab,
             <button
               key={tab.id}
               onClick={() => handleTabClick(tab.id)}
-              className={`group flex items-center space-x-2 px-3.5 py-2 rounded-t-lg font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap border-t-2 border-x-2 cursor-pointer ${
+              className={`group flex items-center space-x-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all whitespace-nowrap cursor-pointer ${
                 isActive
-                  ? 'border-slate-900 bg-indigo-600 text-white shadow-[3px_0px_0px_#0F172A] translate-y-[2px] pb-3'
-                  : 'border-slate-300 bg-slate-100 text-slate-700 hover:text-slate-950 hover:bg-slate-200/80 hover:border-slate-400'
+                  ? 'bg-slate-900 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${isActive ? 'text-white' : 'text-slate-600'}`} />
-              <span>{tab.label}</span>
-              <span className={`text-[9px] font-mono ml-0.5 ${isActive ? 'text-indigo-200' : 'text-slate-400'}`}>
+              <Icon className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${isActive ? 'text-indigo-400' : 'text-slate-500'}`} />
+              <span className="font-mono uppercase tracking-wide text-[11px]">{tab.label}</span>
+              <span className={`text-[9px] font-mono ml-0.5 ${isActive ? 'text-slate-400' : 'text-slate-400'}`}>
                 [{tab.shortcut}]
               </span>
               {tab.badge !== undefined && (
-                <span className="badge-2d bg-rose-500 text-white border-rose-900 text-[10px] px-1.5 py-0.2 rounded-full ml-1 font-mono">
+                <span className="badge-2d bg-rose-500 text-white border-rose-600 text-[10px] px-1.5 py-0.2 rounded-full ml-1 font-mono font-bold">
                   {tab.badge}
                 </span>
               )}
