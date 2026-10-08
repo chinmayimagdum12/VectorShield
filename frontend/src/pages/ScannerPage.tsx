@@ -107,17 +107,17 @@ export const ScannerPage: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Title Header */}
-      <div className="card-2d p-6 bg-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="card-dark p-6 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-lg bg-indigo-50 border-2 border-indigo-600 flex items-center justify-center text-indigo-600 shadow-[2px_2px_0px_#4F46E5]">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-950/80 border border-indigo-800 flex items-center justify-center text-indigo-400 shadow-[0_0_12px_rgba(99,102,241,0.25)]">
               <ScanEye className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-extrabold text-slate-900 font-mono tracking-tight">
+              <h2 className="text-xl font-extrabold text-white font-mono tracking-tight">
                 DEEP DOCUMENT &bull; ADVERSARIAL PAYLOAD SCANNER
               </h2>
-              <p className="text-xs text-slate-500 font-sans">
+              <p className="text-xs text-slate-400 font-sans">
                 Real-time inspection for zero-width steganography, homoglyphs, invisible HTML/CSS, Base64 obfuscation, and prompt injection signatures.
               </p>
             </div>
@@ -125,8 +125,8 @@ export const ScannerPage: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-3">
-          <label className="btn-2d px-4 py-2.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-2 cursor-pointer shadow-[3px_3px_0px_#0F172A] hover:-translate-y-0.5 transition-all">
-            <Upload className="w-4 h-4 text-indigo-600" />
+          <label className="px-4 py-2.5 rounded-xl text-xs font-mono font-bold flex items-center space-x-2 cursor-pointer bg-[#0F172A] border border-slate-800 text-slate-300 hover:text-white hover:border-indigo-500/80 transition-all shadow-sm">
+            <Upload className="w-4 h-4 text-indigo-400" />
             <span>Upload File (PDF/DOCX/MD/TXT)</span>
             <input type="file" onChange={handleFileUpload} className="hidden" accept=".txt,.md,.html,.pdf,.docx" />
           </label>
@@ -134,7 +134,7 @@ export const ScannerPage: React.FC = () => {
           <button
             onClick={() => handleScan()}
             disabled={scanning}
-            className="btn-2d-primary px-5 py-2.5 rounded-xl text-xs font-mono font-black flex items-center space-x-2 shadow-[4px_4px_0px_#4F46E5] hover:shadow-[5px_5px_0px_#6366F1] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            className="btn-2d-primary px-5 py-2.5 rounded-xl text-xs font-mono font-black flex items-center space-x-2 shadow-lg active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
             {scanning ? (
               <>
@@ -153,9 +153,9 @@ export const ScannerPage: React.FC = () => {
       </div>
 
       {/* Preset Pills */}
-      <div className="card-2d p-4 bg-white flex items-center space-x-2 overflow-x-auto text-xs">
-        <span className="text-slate-600 font-extrabold uppercase tracking-wider text-[11px] whitespace-nowrap font-mono flex items-center space-x-1.5 mr-1">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+      <div className="card-dark p-4 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex items-center space-x-2 overflow-x-auto text-xs">
+        <span className="text-slate-400 font-extrabold uppercase tracking-wider text-[11px] whitespace-nowrap font-mono flex items-center space-x-1.5 mr-1">
+          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
           <span>Preset Vectors:</span>
         </span>
         {samplePresets.map((preset, idx) => (
@@ -166,7 +166,7 @@ export const ScannerPage: React.FC = () => {
               setInputText(preset.text);
               handleScan(preset.text);
             }}
-            className="px-3.5 py-1.5 rounded-lg bg-slate-50 border-2 border-slate-300 text-slate-800 hover:text-indigo-600 hover:border-indigo-500 hover:bg-indigo-50/50 font-bold whitespace-nowrap transition-all text-xs font-mono shadow-sm cursor-pointer"
+            className="px-3.5 py-1.5 rounded-xl bg-[#0F172A]/80 border border-slate-800 text-slate-300 hover:text-white hover:border-indigo-500/80 hover:bg-[#131D36] font-bold whitespace-nowrap transition-all text-xs font-mono shadow-sm cursor-pointer"
           >
             {preset.label}
           </button>
@@ -176,17 +176,17 @@ export const ScannerPage: React.FC = () => {
       {/* Editor & Results Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Input Text Inspector with animated Laser line */}
-        <div className="card-2d p-6 bg-white flex flex-col relative overflow-hidden">
+        <div className="card-dark p-6 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex flex-col relative overflow-hidden">
           {scanning && (
-            <div className="absolute inset-x-0 h-1.5 bg-gradient-to-r from-indigo-500 via-cyan-400 to-indigo-600 shadow-[0_0_12px_#4F46E5] animate-[bounce_2s_infinite] z-20 pointer-events-none" />
+            <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-400 to-indigo-600 shadow-[0_0_12px_#4F46E5] animate-[bounce_2s_infinite] z-20 pointer-events-none" />
           )}
 
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-extrabold text-slate-800 uppercase tracking-wider font-mono flex items-center space-x-2">
-              <Activity className="w-4 h-4 text-indigo-600" />
+            <span className="text-xs font-extrabold text-slate-300 uppercase tracking-wider font-mono flex items-center space-x-2">
+              <Activity className="w-4 h-4 text-indigo-400" />
               <span>Inspection Text Buffer</span>
             </span>
-            <span className="text-[11px] text-slate-500 font-mono bg-slate-100 px-2 py-0.5 rounded border border-slate-300">
+            <span className="text-[11px] text-slate-400 font-mono bg-[#050811] px-2.5 py-0.5 rounded-full border border-slate-800">
               {inputText.length} Chars &bull; {inputText.split(/\s+/).filter(Boolean).length} Tokens
             </span>
           </div>
@@ -195,13 +195,13 @@ export const ScannerPage: React.FC = () => {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             rows={14}
-            className="w-full flex-1 p-4 rounded-xl bg-slate-50 border-2 border-slate-300 font-mono text-xs text-slate-900 leading-relaxed focus:bg-white focus:border-indigo-600 focus:outline-none shadow-inner transition-colors resize-y min-h-[300px]"
+            className="w-full flex-1 p-4 rounded-xl bg-[#050811] border border-slate-800 font-mono text-xs text-slate-200 leading-relaxed focus:bg-[#070D1E] focus:border-indigo-500 focus:outline-none shadow-inner transition-colors resize-y min-h-[300px]"
             placeholder="Paste text, markdown, or code containing potential injection payloads..."
           />
         </div>
 
         {/* Right: Scan Results & Risk Breakdown (Sleek Dark Console) */}
-        <div className="card-dark p-6 bg-[#0B1120] text-slate-100 border border-slate-800 flex flex-col justify-between shadow-2xl">
+        <div className="card-dark p-6 bg-[#0A1020] text-slate-100 border border-slate-800 flex flex-col justify-between shadow-xl rounded-2xl">
           <div>
             <div className="flex items-center justify-between pb-3.5 border-b border-slate-800 mb-4">
               <span className="text-xs font-extrabold text-white uppercase tracking-wider font-mono">
@@ -296,11 +296,13 @@ export const ScannerPage: React.FC = () => {
 
           {/* Bottom Action Footer */}
           {scanResult && (
-            <div className="mt-6 pt-4 border-t-2 border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <button
                 onClick={handleCommitToVector}
-                className={`px-5 py-2.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-2 shadow-[3px_3px_0px_#0F172A] hover:-translate-y-0.5 transition-all ${
-                  scanResult.is_blocked ? 'btn-2d-danger' : 'btn-2d-primary'
+                className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold flex items-center space-x-2 shadow-md active:translate-y-0.5 transition-all ${
+                  scanResult.is_blocked
+                    ? 'btn-2d-danger'
+                    : 'btn-2d-primary'
                 }`}
               >
                 <span>
@@ -310,7 +312,7 @@ export const ScannerPage: React.FC = () => {
               </button>
 
               {ingestMsg && (
-                <span className="text-xs font-mono text-emerald-700 font-bold bg-emerald-50 px-3 py-1 rounded border border-emerald-300">
+                <span className="text-xs font-mono text-emerald-400 font-bold bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-700">
                   {ingestMsg}
                 </span>
               )}

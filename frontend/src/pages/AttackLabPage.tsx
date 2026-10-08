@@ -83,17 +83,17 @@ export const AttackLabPage: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header bar */}
-      <div className="card-2d p-6 bg-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="card-dark p-6 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-lg bg-indigo-50 border-2 border-indigo-600 flex items-center justify-center text-indigo-600 shadow-[2px_2px_0px_#4F46E5]">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-950/80 border border-indigo-800 flex items-center justify-center text-indigo-400 shadow-[0_0_12px_rgba(99,102,241,0.25)]">
               <Swords className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-extrabold text-slate-900 font-mono tracking-tight">
+              <h2 className="text-xl font-extrabold text-white font-mono tracking-tight">
                 ATTACK LAB &bull; SIDE-BY-SIDE DUEL ARENA
               </h2>
-              <p className="text-xs text-slate-500 font-sans">
+              <p className="text-xs text-slate-400 font-sans">
                 Simultaneously execute indirect prompt injections against Undefended Target RAG vs Protected VectorShield RAG.
               </p>
             </div>
@@ -103,7 +103,7 @@ export const AttackLabPage: React.FC = () => {
         <button
           onClick={runDuel}
           disabled={loading}
-          className="btn-2d-primary px-6 py-3 rounded-xl text-xs font-black font-mono flex items-center justify-center space-x-2.5 min-w-[210px] shadow-[4px_4px_0px_#4F46E5] hover:shadow-[5px_5px_0px_#6366F1] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          className="btn-2d-primary px-6 py-3 rounded-xl text-xs font-black font-mono flex items-center justify-center space-x-2.5 min-w-[210px] shadow-lg active:translate-x-0.5 active:translate-y-0.5 transition-all"
         >
           {loading ? (
             <>
@@ -121,13 +121,13 @@ export const AttackLabPage: React.FC = () => {
       </div>
 
       {/* Preset Attacks Selector Carousel */}
-      <div className="card-2d p-6 bg-white">
+      <div className="card-dark p-6 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl">
         <div className="flex items-center justify-between mb-3.5">
-          <div className="text-xs font-extrabold text-slate-700 uppercase tracking-wider font-mono flex items-center space-x-2">
-            <Flame className="w-4 h-4 text-amber-500" />
+          <div className="text-xs font-extrabold text-slate-300 uppercase tracking-wider font-mono flex items-center space-x-2">
+            <Flame className="w-4 h-4 text-amber-400" />
             <span>Select Adversarial Attack Template (A1 - A13):</span>
           </div>
-          <span className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-300">
+          <span className="text-[11px] font-mono text-indigo-300 bg-indigo-950/70 px-2.5 py-0.5 rounded-full border border-indigo-800">
             {catalog.length} Scenarios Loaded
           </span>
         </div>
@@ -139,21 +139,21 @@ export const AttackLabPage: React.FC = () => {
               <button
                 key={atk.attack_id}
                 onClick={() => selectAttack(atk)}
-                className={`p-3 text-left rounded-lg border-2 transition-all cursor-pointer font-sans ${
+                className={`p-3 text-left rounded-xl border transition-all cursor-pointer font-sans ${
                   isSelected
-                    ? 'border-indigo-600 bg-indigo-50/80 text-indigo-950 shadow-[3px_3px_0px_#4F46E5] -translate-y-0.5'
-                    : 'border-slate-300 bg-slate-50/60 hover:bg-slate-100 hover:border-slate-400 text-slate-700 hover:-translate-y-0.5'
+                    ? 'border-indigo-500 bg-indigo-950/70 text-white shadow-[0_0_12px_rgba(99,102,241,0.3)] -translate-y-0.5'
+                    : 'border-slate-800 bg-[#0F172A]/70 hover:bg-[#131D36] hover:border-slate-700 text-slate-300 hover:-translate-y-0.5'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className={`font-mono text-xs font-extrabold ${isSelected ? 'text-indigo-600' : 'text-slate-800'}`}>
+                  <span className={`font-mono text-xs font-extrabold ${isSelected ? 'text-indigo-400' : 'text-slate-200'}`}>
                     {atk.family}
                   </span>
-                  <span className="text-[10px] text-slate-500 font-mono px-1 rounded bg-white/80 border border-slate-200">
+                  <span className="text-[10px] text-slate-400 font-mono px-1.5 py-0.5 rounded-full bg-[#050811] border border-slate-800">
                     {atk.goal}
                   </span>
                 </div>
-                <p className="text-[11px] font-bold text-slate-900 mt-1.5 truncate">
+                <p className="text-[11px] font-bold text-slate-200 mt-1.5 truncate">
                   {atk.title}
                 </p>
               </button>
@@ -164,26 +164,26 @@ export const AttackLabPage: React.FC = () => {
 
       {/* Query & Payload Inspector */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="card-2d p-5 bg-white">
-          <label className="block text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-2 font-mono flex items-center space-x-2">
-            <Terminal className="w-4 h-4 text-indigo-600" />
+        <div className="card-dark p-5 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl">
+          <label className="block text-xs font-extrabold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center space-x-2">
+            <Terminal className="w-4 h-4 text-indigo-400" />
             <span>Target User Prompt / Question:</span>
           </label>
           <input
             type="text"
             value={customQuestion}
             onChange={(e) => setCustomQuestion(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 border-2 border-slate-300 font-mono text-xs text-slate-900 focus:bg-white focus:border-indigo-600 focus:outline-none shadow-inner transition-colors"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-[#050811] border border-slate-800 font-mono text-xs text-slate-200 focus:bg-[#070D1E] focus:border-indigo-500 focus:outline-none shadow-inner transition-colors"
           />
         </div>
 
-        <div className="card-2d p-5 bg-white">
+        <div className="card-dark p-5 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl">
           <div className="flex items-center justify-between mb-2">
-            <label className="text-xs font-extrabold text-slate-800 uppercase tracking-wider font-mono flex items-center space-x-2">
-              <FileWarning className="w-4 h-4 text-rose-600" />
+            <label className="text-xs font-extrabold text-slate-300 uppercase tracking-wider font-mono flex items-center space-x-2">
+              <FileWarning className="w-4 h-4 text-rose-400" />
               <span>Embedded Poison Payload (Indirect Injection):</span>
             </label>
-            <span className="badge-2d bg-rose-50 text-rose-700 border-rose-400 text-[10px] px-2 py-0.5 rounded font-mono font-bold">
+            <span className="badge-2d bg-rose-950/80 text-rose-400 border-rose-700 text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold">
               POISON INJECTION
             </span>
           </div>
@@ -191,7 +191,7 @@ export const AttackLabPage: React.FC = () => {
             type="text"
             value={customPayload}
             onChange={(e) => setCustomPayload(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-lg bg-rose-50/50 border-2 border-rose-300 font-mono text-xs text-rose-900 focus:bg-white focus:border-rose-600 focus:outline-none shadow-inner transition-colors"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-[#09040A] border border-rose-900/60 font-mono text-xs text-rose-300 focus:bg-[#0F0712] focus:border-rose-500 focus:outline-none shadow-inner transition-colors"
           />
         </div>
       </div>
@@ -201,19 +201,19 @@ export const AttackLabPage: React.FC = () => {
         <div className="space-y-5 animate-scale-up">
           {/* Duel Mitigation Verdict Header */}
           <div
-            className={`card-2d p-5 border-2 ${
+            className={`card-dark p-5 border rounded-2xl shadow-xl ${
               duelResult.attack_prevented
-                ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-[4px_4px_0px_#059669]'
-                : 'border-amber-500 bg-amber-50 text-amber-950 shadow-[4px_4px_0px_#D97706]'
+                ? 'border-emerald-800/80 bg-[#06151E] text-emerald-300'
+                : 'border-amber-800/80 bg-[#161007] text-amber-300'
             }`}
           >
             <div className="flex items-center space-x-2.5">
               {duelResult.attack_prevented ? (
-                <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-full bg-emerald-600/80 text-white flex items-center justify-center shrink-0 shadow-[0_0_8px_#059669]">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
               ) : (
-                <div className="w-7 h-7 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-full bg-amber-500/80 text-white flex items-center justify-center shrink-0 shadow-[0_0_8px_#D97706]">
                   <AlertTriangle className="w-4 h-4" />
                 </div>
               )}
@@ -221,7 +221,7 @@ export const AttackLabPage: React.FC = () => {
                 {duelResult.attack_prevented ? 'EXPLOIT NEUTRALIZED BY VECTORSHIELD' : 'SECURITY NOTICE'}
               </h4>
             </div>
-            <p className="text-xs text-slate-700 mt-2 font-sans font-medium pl-9">
+            <p className="text-xs text-slate-300 mt-2 font-sans font-medium pl-9 leading-relaxed">
               {duelResult.mitigation_summary}
             </p>
           </div>
@@ -229,7 +229,7 @@ export const AttackLabPage: React.FC = () => {
           {/* Split Duel View */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* 1. Undefended Victim RAG (Dark Breached Terminal) */}
-            <div className="card-dark p-6 border border-rose-900/80 bg-[#0E0712] shadow-xl flex flex-col justify-between text-slate-200">
+            <div className="card-dark p-6 border border-rose-900/80 bg-[#0E0712] shadow-xl rounded-2xl flex flex-col justify-between text-slate-200">
               <div>
                 <div className="flex items-center justify-between pb-3.5 border-b border-rose-900/60">
                   <div className="flex items-center space-x-2">
@@ -238,7 +238,7 @@ export const AttackLabPage: React.FC = () => {
                       UNDEFENDED TARGET RAG
                     </span>
                   </div>
-                  <span className="badge-2d bg-rose-950/80 text-rose-300 border-rose-700 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">
+                  <span className="badge-2d bg-rose-950/80 text-rose-300 border-rose-700 text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold">
                     DEFENSES: OFF
                   </span>
                 </div>
@@ -249,7 +249,7 @@ export const AttackLabPage: React.FC = () => {
                     <XCircle className="w-4 h-4 mr-2 text-rose-500" />
                     Status: System Compromised
                   </span>
-                  <span className="font-mono text-rose-400 text-xs font-bold bg-black/40 px-2 py-0.5 rounded border border-rose-900/60">
+                  <span className="font-mono text-rose-400 text-xs font-bold bg-black/60 px-2 py-0.5 rounded border border-rose-900/60">
                     {duelResult.victim_response.latency_ms} ms
                   </span>
                 </div>
@@ -269,13 +269,13 @@ export const AttackLabPage: React.FC = () => {
               <div className="mt-5 pt-3.5 border-t border-rose-900/50 text-xs font-mono space-y-2">
                 <div className="flex justify-between items-center text-slate-400">
                   <span>Instruction Override:</span>
-                  <span className="text-rose-400 font-bold bg-rose-950/80 px-2 py-0.5 rounded border border-rose-800">
+                  <span className="text-rose-400 font-bold bg-rose-950/80 px-2.5 py-0.5 rounded-full border border-rose-800">
                     SUCCUMBED
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-slate-400">
                   <span>Canary Leakage:</span>
-                  <span className={`font-bold px-2 py-0.5 rounded border ${
+                  <span className={`font-bold px-2.5 py-0.5 rounded-full border ${
                     duelResult.victim_response.canary_leaked
                       ? 'text-rose-400 bg-rose-950 border-rose-700'
                       : 'text-slate-400 bg-slate-900 border-slate-800'
@@ -293,59 +293,59 @@ export const AttackLabPage: React.FC = () => {
             </div>
 
             {/* 2. Protected VectorShield RAG */}
-            <div className="card-2d p-6 border-2 border-emerald-300 bg-emerald-50/30 shadow-[4px_4px_0px_#059669] flex flex-col justify-between">
+            <div className="card-dark p-6 border border-emerald-900/80 bg-[#06151E] shadow-xl rounded-2xl flex flex-col justify-between text-slate-200">
               <div>
-                <div className="flex items-center justify-between pb-3.5 border-b-2 border-emerald-200">
+                <div className="flex items-center justify-between pb-3.5 border-b border-emerald-900/60">
                   <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 rounded-full bg-emerald-600" />
-                    <span className="font-mono text-xs font-extrabold text-emerald-800">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="font-mono text-xs font-extrabold text-emerald-400">
                       VECTORSHIELD DEFENDED RAG
                     </span>
                   </div>
-                  <span className="badge-2d bg-emerald-100 text-emerald-800 border-emerald-400 text-[10px] px-2 py-0.5 rounded font-mono font-bold">
+                  <span className="badge-2d bg-emerald-950/80 text-emerald-400 border-emerald-700 text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold">
                     L0-L5 ACTIVE
                   </span>
                 </div>
 
                 {/* Status Banner */}
-                <div className="mt-4 p-3 rounded-lg bg-emerald-100/70 border-2 border-emerald-300 flex items-center justify-between text-xs">
-                  <span className="text-emerald-900 font-bold flex items-center font-mono">
-                    <CheckCircle className="w-4 h-4 mr-2 text-emerald-600" />
+                <div className="mt-4 p-3 rounded-xl bg-emerald-950/40 border border-emerald-800/60 flex items-center justify-between text-xs">
+                  <span className="text-emerald-300 font-bold flex items-center font-mono">
+                    <CheckCircle className="w-4 h-4 mr-2 text-emerald-400" />
                     Status: Attack Intercepted &amp; Disarmed
                   </span>
-                  <span className="font-mono text-emerald-700 text-xs font-bold bg-white px-2 py-0.5 rounded border border-emerald-200">
+                  <span className="font-mono text-emerald-400 text-xs font-bold bg-black/60 px-2 py-0.5 rounded border border-emerald-900/60">
                     {duelResult.shielded_response.latency_ms} ms
                   </span>
                 </div>
 
                 {/* LLM Response */}
                 <div className="mt-4">
-                  <div className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider mb-1.5 font-mono">
+                  <div className="text-[11px] font-extrabold text-emerald-300/80 uppercase tracking-wider mb-1.5 font-mono">
                     Guarded Output (Grounded &amp; Sanitized):
                   </div>
-                  <div className="p-4 rounded-lg bg-white border-2 border-emerald-200 font-mono text-xs text-slate-900 leading-relaxed min-h-[130px] shadow-sm select-all">
+                  <div className="p-4 rounded-xl bg-black/60 border border-emerald-900/60 font-mono text-xs text-emerald-200 leading-relaxed min-h-[130px] shadow-inner select-all">
                     {duelResult.shielded_response.answer}
                   </div>
                 </div>
               </div>
 
               {/* Forensic Details */}
-              <div className="mt-5 pt-3.5 border-t-2 border-emerald-200 text-xs font-mono space-y-2">
-                <div className="flex justify-between items-center text-slate-600">
+              <div className="mt-5 pt-3.5 border-t border-emerald-900/50 text-xs font-mono space-y-2">
+                <div className="flex justify-between items-center text-slate-400">
                   <span>Dropped Poison Chunks:</span>
-                  <span className="text-emerald-800 font-bold bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
+                  <span className="text-emerald-400 font-bold bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-700">
                     {duelResult.shielded_response.security_report?.dropped_chunks.length ?? 0} Chunks Isolated
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600">
+                <div className="flex justify-between items-center text-slate-400">
                   <span>Exfiltration Beacons:</span>
-                  <span className="text-emerald-800 font-bold bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
+                  <span className="text-emerald-400 font-bold bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-700">
                     {duelResult.shielded_response.exfiltration_blocked ? 'STRIPPED' : 'CLEAN'}
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600">
+                <div className="flex justify-between items-center text-slate-400">
                   <span>Forensic Audit Digest:</span>
-                  <span className="text-indigo-600 font-mono text-[11px] font-bold bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 truncate max-w-[200px]">
+                  <span className="text-indigo-400 font-mono text-[11px] font-bold bg-indigo-950/80 px-2.5 py-0.5 rounded-full border border-indigo-800 truncate max-w-[200px]">
                     {duelResult.shielded_response.security_report?.forensic_hash.slice(0, 16)}...
                   </span>
                 </div>
@@ -355,34 +355,34 @@ export const AttackLabPage: React.FC = () => {
 
           {/* Interactive Chunk Inspection Drawer */}
           {duelResult.shielded_response.retrieved_chunks.length > 0 && (
-            <div className="card-2d p-6 bg-white">
-              <h4 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-3.5 font-mono flex items-center space-x-2">
-                <Cpu className="w-4 h-4 text-indigo-600" />
+            <div className="card-dark p-6 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl text-slate-200">
+              <h4 className="text-xs font-extrabold text-slate-300 uppercase tracking-wider mb-3.5 font-mono flex items-center space-x-2">
+                <Cpu className="w-4 h-4 text-indigo-400" />
                 <span>Retrieved Chunks Forensic Analysis:</span>
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                 {duelResult.shielded_response.retrieved_chunks.map((chk, i) => (
                   <div
                     key={chk.chunk_id || i}
-                    className={`p-3.5 rounded-lg border-2 text-xs transition-all ${
+                    className={`p-3.5 rounded-xl border text-xs transition-all ${
                       chk.is_dropped
-                        ? 'bg-rose-50/70 border-rose-300 text-rose-950 shadow-[2px_2px_0px_#E11D48]'
-                        : 'bg-slate-50 border-slate-300 text-slate-800 shadow-[2px_2px_0px_#94A3B8]'
+                        ? 'bg-[#140810] border-rose-900/80 text-rose-300 shadow-md'
+                        : 'bg-[#0F172A]/80 border-slate-800 text-slate-300 shadow-md'
                     }`}
                   >
                     <div className="flex items-center justify-between font-mono text-[11px] mb-1.5">
-                      <span className="font-extrabold text-slate-900">ID: {chk.chunk_id}</span>
+                      <span className="font-extrabold text-white">ID: {chk.chunk_id}</span>
                       {chk.is_dropped ? (
-                        <span className="badge-2d bg-rose-100 text-rose-700 border-rose-400 text-[10px] px-2 py-0.5 rounded font-bold">
+                        <span className="badge-2d bg-rose-950/80 text-rose-400 border-rose-700 text-[10px] px-2.5 py-0.5 rounded-full font-bold">
                           DROPPED &bull; {chk.drop_reason}
                         </span>
                       ) : (
-                        <span className="badge-2d bg-emerald-100 text-emerald-800 border-emerald-400 text-[10px] px-2 py-0.5 rounded font-bold">
+                        <span className="badge-2d bg-emerald-950/80 text-emerald-400 border-emerald-700 text-[10px] px-2.5 py-0.5 rounded-full font-bold">
                           PASSED &bull; SIM {chk.score.toFixed(2)}
                         </span>
                       )}
                     </div>
-                    <p className="font-mono text-[11px] text-slate-600 line-clamp-2 mt-1 bg-white/70 p-2 rounded border border-slate-200">
+                    <p className="font-mono text-[11px] text-slate-400 line-clamp-2 mt-1 bg-[#050811] p-2 rounded-lg border border-slate-800/80">
                       {chk.text}
                     </p>
                   </div>

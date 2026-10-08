@@ -240,22 +240,22 @@ export const VectorExplorerPage: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* 1. Header Toolbar */}
-      <div className="card-pro p-6 bg-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="card-dark p-6 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-white shadow-sm">
-              <Network className="w-5 h-5 text-indigo-400" />
+            <div className="w-10 h-10 rounded-xl bg-indigo-950/80 border border-indigo-800 flex items-center justify-center text-indigo-400 shadow-[0_0_12px_rgba(99,102,241,0.25)]">
+              <Network className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-xl font-extrabold text-slate-900 font-mono tracking-tight">
+                <h2 className="text-xl font-extrabold text-white font-mono tracking-tight">
                   KNOWLEDGE BASE &bull; 2D VECTOR SPACE EXPLORER
                 </h2>
-                <span className="badge-2d bg-indigo-50 text-indigo-700 border-indigo-200 text-[10px] px-2 py-0.5 rounded-full font-mono">
+                <span className="badge-2d bg-indigo-950/80 text-indigo-400 border-indigo-700 text-[10px] px-2.5 py-0.5 rounded-full font-mono">
                   PCA 2D PROJECTION
                 </span>
               </div>
-              <p className="text-xs text-slate-500 font-sans mt-0.5">
+              <p className="text-xs text-slate-400 font-sans mt-0.5">
                 Analyze dense embedding cluster topologies, evaluate adversarial proximity, and inspect indexed chunks.
               </p>
             </div>
@@ -264,13 +264,13 @@ export const VectorExplorerPage: React.FC = () => {
 
         {/* Sub-tab pills & Main Ingest button */}
         <div className="flex items-center flex-wrap gap-2.5">
-          <div className="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200/80">
+          <div className="flex items-center p-1 bg-[#0F172A] rounded-xl border border-slate-800">
             <button
               onClick={() => { sound.playClick(); setSubTab('map'); }}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer ${
                 subTab === 'map'
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#050811] text-white shadow-sm border border-slate-700'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               2D Vector Map
@@ -279,8 +279,8 @@ export const VectorExplorerPage: React.FC = () => {
               onClick={() => { sound.playClick(); setSubTab('documents'); }}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer ${
                 subTab === 'documents'
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#050811] text-white shadow-sm border border-slate-700'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Documents ({documents.length})
@@ -289,8 +289,8 @@ export const VectorExplorerPage: React.FC = () => {
               onClick={() => { sound.playClick(); setSubTab('quarantine'); }}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer ${
                 subTab === 'quarantine'
-                  ? 'bg-white text-rose-700 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#050811] text-rose-400 shadow-sm border border-rose-900/60'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Quarantine ({quarantineRecords.length})
@@ -309,7 +309,7 @@ export const VectorExplorerPage: React.FC = () => {
 
           <button
             onClick={loadData}
-            className="btn-2d p-2 rounded-xl text-slate-600 hover:text-slate-900"
+            className="px-2.5 py-2 rounded-xl bg-[#0F172A] border border-slate-800 text-slate-400 hover:text-white transition-colors"
             title="Refresh Knowledge Base"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -319,46 +319,46 @@ export const VectorExplorerPage: React.FC = () => {
 
       {/* 2. Top Metric Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-        <div className="card-pro p-4 bg-white flex items-center justify-between">
+        <div className="card-dark p-4 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex items-center justify-between">
           <div>
-            <div className="text-[11px] font-bold text-slate-500 uppercase font-mono">Total Vectors</div>
-            <div className="text-xl font-black font-mono text-slate-900 mt-0.5">{vectorPoints.length}</div>
+            <div className="text-[11px] font-bold text-slate-400 uppercase font-mono">Total Vectors</div>
+            <div className="text-2xl font-black font-mono text-white mt-0.5">{vectorPoints.length}</div>
           </div>
-          <div className="p-2 rounded-xl bg-slate-100 text-slate-700">
+          <div className="p-2 rounded-xl bg-slate-800/80 text-slate-300">
             <Layers className="w-4 h-4" />
           </div>
         </div>
 
-        <div className="card-pro p-4 bg-white flex items-center justify-between">
+        <div className="card-dark p-4 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex items-center justify-between">
           <div>
-            <div className="text-[11px] font-bold text-slate-500 uppercase font-mono">Verified Corpus</div>
-            <div className="text-xl font-black font-mono text-emerald-600 mt-0.5">
+            <div className="text-[11px] font-bold text-slate-400 uppercase font-mono">Verified Corpus</div>
+            <div className="text-2xl font-black font-mono text-emerald-400 mt-0.5">
               {vectorPoints.filter((p) => !p.is_poisoned).length}
             </div>
           </div>
-          <div className="p-2 rounded-xl bg-emerald-50 text-emerald-600">
+          <div className="p-2 rounded-xl bg-emerald-950/80 text-emerald-400 border border-emerald-800/60">
             <ShieldCheck className="w-4 h-4" />
           </div>
         </div>
 
-        <div className="card-pro p-4 bg-white flex items-center justify-between">
+        <div className="card-dark p-4 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex items-center justify-between">
           <div>
-            <div className="text-[11px] font-bold text-slate-500 uppercase font-mono">Poisoned Vectors</div>
-            <div className="text-xl font-black font-mono text-rose-600 mt-0.5">
+            <div className="text-[11px] font-bold text-slate-400 uppercase font-mono">Poisoned Vectors</div>
+            <div className="text-2xl font-black font-mono text-rose-400 mt-0.5">
               {vectorPoints.filter((p) => p.is_poisoned).length}
             </div>
           </div>
-          <div className="p-2 rounded-xl bg-rose-50 text-rose-600">
+          <div className="p-2 rounded-xl bg-rose-950/80 text-rose-400 border border-rose-800/60">
             <Flame className="w-4 h-4" />
           </div>
         </div>
 
-        <div className="card-pro p-4 bg-white flex items-center justify-between">
+        <div className="card-dark p-4 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex items-center justify-between">
           <div>
-            <div className="text-[11px] font-bold text-slate-500 uppercase font-mono">Projection Mode</div>
-            <div className="text-sm font-bold font-mono text-indigo-700 mt-1">384-D &rarr; 2D PCA</div>
+            <div className="text-[11px] font-bold text-slate-400 uppercase font-mono">Projection Mode</div>
+            <div className="text-sm font-bold font-mono text-indigo-400 mt-1">384-D &rarr; 2D PCA</div>
           </div>
-          <div className="p-2 rounded-xl bg-indigo-50 text-indigo-600">
+          <div className="p-2 rounded-xl bg-indigo-950/80 text-indigo-400 border border-indigo-800/60">
             <Activity className="w-4 h-4" />
           </div>
         </div>
@@ -368,7 +368,7 @@ export const VectorExplorerPage: React.FC = () => {
       {subTab === 'map' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: Interactive 2D Vector Space Canvas (2 cols) */}
-          <div className="lg:col-span-2 card-pro p-6 bg-white flex flex-col justify-between">
+          <div className="lg:col-span-2 card-dark p-6 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl flex flex-col justify-between">
             {/* Canvas Toolbar: Search + Filter + Zoom */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 text-xs font-mono">
               {/* Semantic Query Search in Canvas */}
@@ -379,18 +379,18 @@ export const VectorExplorerPage: React.FC = () => {
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   placeholder="Test semantic query vector (e.g. 'quarterly revenue')..."
-                  className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono text-slate-900 focus:bg-white focus:border-indigo-600 focus:outline-none transition-all placeholder:text-slate-400"
+                  className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-[#050811] border border-slate-800 text-xs font-mono text-slate-200 focus:bg-[#070D1E] focus:border-indigo-500 focus:outline-none transition-all placeholder:text-slate-500"
                 />
               </div>
 
               <div className="flex items-center space-x-3">
                 {/* Cluster filter */}
                 <div className="flex items-center space-x-1.5">
-                  <span className="text-slate-500 text-[11px] font-bold uppercase">Cluster:</span>
+                  <span className="text-slate-400 text-[11px] font-bold uppercase">Cluster:</span>
                   <select
                     value={filterCluster}
                     onChange={(e) => setFilterCluster(e.target.value)}
-                    className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold text-slate-900 focus:outline-none focus:border-indigo-600"
+                    className="px-2.5 py-1 rounded-xl bg-[#050811] border border-slate-800 text-xs font-bold text-slate-200 focus:outline-none focus:border-indigo-500"
                   >
                     {clusterNames.map((cn) => (
                       <option key={cn} value={cn}>
@@ -401,57 +401,57 @@ export const VectorExplorerPage: React.FC = () => {
                 </div>
 
                 {/* Zoom controls */}
-                <div className="flex items-center space-x-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
+                <div className="flex items-center space-x-1 bg-[#0F172A] p-1 rounded-xl border border-slate-800">
                   <button
                     onClick={() => setZoomScale((prev) => Math.min(2.2, prev + 0.2))}
-                    className="p-1 rounded text-slate-600 hover:text-slate-900 hover:bg-white"
+                    className="p-1 rounded text-slate-400 hover:text-white hover:bg-[#050811]"
                     title="Zoom In"
                   >
                     <ZoomIn className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => setZoomScale((prev) => Math.max(0.6, prev - 0.2))}
-                    className="p-1 rounded text-slate-600 hover:text-slate-900 hover:bg-white"
+                    className="p-1 rounded text-slate-400 hover:text-white hover:bg-[#050811]"
                     title="Zoom Out"
                   >
                     <ZoomOut className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => setZoomScale(1.0)}
-                    className="p-1 rounded text-slate-600 hover:text-slate-900 hover:bg-white"
+                    className="p-1 rounded text-slate-400 hover:text-white hover:bg-[#050811]"
                     title="Reset Scale"
                   >
                     <Crosshair className="w-3.5 h-3.5" />
                   </button>
-                  <span className="text-[10px] font-bold text-slate-600 px-1">{Math.round(zoomScale * 100)}%</span>
+                  <span className="text-[10px] font-bold text-slate-300 px-1">{Math.round(zoomScale * 100)}%</span>
                 </div>
               </div>
             </div>
 
             {/* Interactive Canvas Area */}
-            <div className="relative w-full h-[520px] bg-slate-50/70 rounded-2xl border border-slate-200 overflow-hidden flex items-center justify-center p-6 shadow-inner select-none">
+            <div className="relative w-full h-[520px] bg-[#060913] rounded-2xl border border-slate-800/90 overflow-hidden flex items-center justify-center p-6 shadow-inner select-none">
               {/* Subtle grid background */}
               <div
                 className="absolute inset-0 opacity-40 pointer-events-none"
                 style={{
                   backgroundImage:
-                    'linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)',
+                    'linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)',
                   backgroundSize: '36px 36px',
                 }}
               />
 
               {/* Grid origin lines */}
-              <div className="absolute inset-x-0 top-1/2 border-t border-dashed border-slate-300 pointer-events-none" />
-              <div className="absolute inset-y-0 left-1/2 border-l border-dashed border-slate-300 pointer-events-none" />
+              <div className="absolute inset-x-0 top-1/2 border-t border-dashed border-slate-800 pointer-events-none" />
+              <div className="absolute inset-y-0 left-1/2 border-l border-dashed border-slate-800 pointer-events-none" />
 
               {/* Coordinates Scale markers */}
-              <div className="absolute left-3 top-3 text-[10px] font-mono text-slate-400 pointer-events-none">
+              <div className="absolute left-3 top-3 text-[10px] font-mono text-slate-500 pointer-events-none">
                 +Y ({bounds.maxY.toFixed(1)})
               </div>
-              <div className="absolute left-3 bottom-3 text-[10px] font-mono text-slate-400 pointer-events-none">
+              <div className="absolute left-3 bottom-3 text-[10px] font-mono text-slate-500 pointer-events-none">
                 -Y ({bounds.minY.toFixed(1)})
               </div>
-              <div className="absolute right-3 bottom-3 text-[10px] font-mono text-slate-400 pointer-events-none">
+              <div className="absolute right-3 bottom-3 text-[10px] font-mono text-slate-500 pointer-events-none">
                 +X ({bounds.maxX.toFixed(1)})
               </div>
 
@@ -470,15 +470,15 @@ export const VectorExplorerPage: React.FC = () => {
                     <div
                       className={`w-36 h-36 rounded-full border border-dashed animate-pulse duration-1000 ${
                         halo.isPoisoned
-                          ? 'bg-rose-500/5 border-rose-300/40 ring-8 ring-rose-500/5'
-                          : 'bg-indigo-500/5 border-indigo-300/40 ring-8 ring-indigo-500/5'
+                          ? 'bg-rose-500/10 border-rose-500/40 ring-8 ring-rose-500/5'
+                          : 'bg-indigo-500/10 border-indigo-500/40 ring-8 ring-indigo-500/5'
                       }`}
                     />
                     <span
                       className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full mt-1 border shadow-xs ${
                         halo.isPoisoned
-                          ? 'bg-rose-50 text-rose-700 border-rose-200'
-                          : 'bg-white text-slate-700 border-slate-200'
+                          ? 'bg-rose-950/80 text-rose-300 border-rose-700'
+                          : 'bg-[#0A1020] text-slate-300 border-slate-700'
                       }`}
                     >
                       {halo.cluster} ({halo.count})
@@ -602,25 +602,25 @@ export const VectorExplorerPage: React.FC = () => {
             </div>
 
             {/* Bottom Legend */}
-            <div className="flex flex-wrap items-center justify-between text-xs font-mono text-slate-600 mt-4 pt-3 border-t border-slate-100 gap-2">
+            <div className="flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 mt-4 pt-3 border-t border-slate-800 gap-2">
               <div className="flex items-center space-x-4">
                 <span className="flex items-center space-x-1.5">
-                  <span className="w-3 h-3 rounded-full bg-emerald-500 border border-white shadow-xs" />
-                  <span className="font-semibold text-slate-700">Verified Corpus</span>
+                  <span className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_6px_#10B981]" />
+                  <span className="font-semibold text-slate-300">Verified Corpus</span>
                 </span>
                 <span className="flex items-center space-x-1.5">
-                  <span className="w-3 h-3 rounded-full bg-indigo-600 border border-white shadow-xs" />
-                  <span className="font-semibold text-slate-700">Tier 0 System</span>
+                  <span className="w-3 h-3 rounded-full bg-indigo-500 shadow-[0_0_6px_#6366F1]" />
+                  <span className="font-semibold text-slate-300">Tier 0 System</span>
                 </span>
                 <span className="flex items-center space-x-1.5">
-                  <span className="w-3 h-3 rounded-full bg-rose-500 border border-white shadow-xs animate-pulse" />
-                  <span className="font-bold text-rose-600">Poisoned Injections</span>
+                  <span className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_6px_#F43F5E] animate-pulse" />
+                  <span className="font-bold text-rose-400">Poisoned Injections</span>
                 </span>
               </div>
 
-              <div className="text-slate-500 font-medium">
-                Rendered: <span className="font-bold text-slate-900">{filteredPoints.length}</span> of{' '}
-                <span className="font-bold text-slate-900">{vectorPoints.length}</span> vectors
+              <div className="text-slate-400 font-medium">
+                Rendered: <span className="font-bold text-white font-mono">{filteredPoints.length}</span> of{' '}
+                <span className="font-bold text-white font-mono">{vectorPoints.length}</span> vectors
               </div>
             </div>
           </div>
@@ -782,7 +782,7 @@ export const VectorExplorerPage: React.FC = () => {
       {subTab === 'documents' && (
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <span className="text-xs font-extrabold text-slate-700 uppercase tracking-wider font-mono">
+            <span className="text-xs font-extrabold text-slate-300 uppercase tracking-wider font-mono">
               Indexed Corpus Repositories ({documents.length} Files)
             </span>
             <button
@@ -796,25 +796,25 @@ export const VectorExplorerPage: React.FC = () => {
 
           {/* Ingest Form Drawer */}
           {showAddDoc && (
-            <form onSubmit={handleIngest} className="card-pro p-6 space-y-4 bg-white border border-slate-200 animate-scale-up">
+            <form onSubmit={handleIngest} className="card-dark p-6 space-y-4 bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl animate-scale-up">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-extrabold text-slate-800 uppercase font-mono">Document Title:</label>
+                  <label className="text-xs font-extrabold text-slate-300 uppercase font-mono">Document Title:</label>
                   <input
                     type="text"
                     required
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     placeholder="e.g. Q3 Security Architecture Whitepaper"
-                    className="w-full px-3.5 py-2.5 mt-1.5 rounded-lg bg-slate-50 border border-slate-300 text-xs font-mono text-slate-900 focus:bg-white focus:border-indigo-600 focus:outline-none"
+                    className="w-full px-3.5 py-2.5 mt-1.5 rounded-xl bg-[#050811] border border-slate-800 text-xs font-mono text-slate-200 focus:bg-[#070D1E] focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-extrabold text-slate-800 uppercase font-mono">Trust Tier:</label>
+                  <label className="text-xs font-extrabold text-slate-300 uppercase font-mono">Trust Tier:</label>
                   <select
                     value={newTier}
                     onChange={(e) => setNewTier(e.target.value)}
-                    className="w-full px-3.5 py-2.5 mt-1.5 rounded-lg bg-slate-50 border border-slate-300 text-xs font-bold text-slate-900 focus:bg-white focus:border-indigo-600 focus:outline-none"
+                    className="w-full px-3.5 py-2.5 mt-1.5 rounded-xl bg-[#050811] border border-slate-800 text-xs font-bold text-slate-200 focus:outline-none focus:border-indigo-500"
                   >
                     <option value="tier_0">Tier 0 (System / Verified Internal)</option>
                     <option value="tier_1">Tier 1 (Internal Corporate)</option>
@@ -824,14 +824,14 @@ export const VectorExplorerPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-extrabold text-slate-800 uppercase font-mono">Document Text Content:</label>
+                <label className="text-xs font-extrabold text-slate-300 uppercase font-mono">Document Text Content:</label>
                 <textarea
                   required
                   rows={4}
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
                   placeholder="Enter full text content..."
-                  className="w-full p-3.5 mt-1.5 rounded-lg bg-slate-50 border border-slate-300 font-mono text-xs text-slate-900 focus:bg-white focus:border-indigo-600 focus:outline-none"
+                  className="w-full p-3.5 mt-1.5 rounded-xl bg-[#050811] border border-slate-800 font-mono text-xs text-slate-200 focus:bg-[#070D1E] focus:border-indigo-500 focus:outline-none"
                 />
               </div>
 
@@ -839,7 +839,7 @@ export const VectorExplorerPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowAddDoc(false)}
-                  className="btn-2d px-4 py-2 text-xs font-mono font-bold"
+                  className="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-[#0F172A] border border-slate-800 text-slate-400 hover:text-white"
                 >
                   Cancel
                 </button>
@@ -851,9 +851,9 @@ export const VectorExplorerPage: React.FC = () => {
           )}
 
           {/* Documents Table */}
-          <div className="card-pro overflow-hidden bg-white">
+          <div className="card-dark overflow-hidden bg-[#0A1020] border border-slate-800 shadow-xl rounded-2xl">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-mono font-bold uppercase text-[11px]">
+              <thead className="bg-[#0F172A] border-b border-slate-800 text-slate-400 font-mono font-bold uppercase text-[11px]">
                 <tr>
                   <th className="p-3.5">Title</th>
                   <th className="p-3.5">Trust Tier</th>
@@ -863,22 +863,22 @@ export const VectorExplorerPage: React.FC = () => {
                   <th className="p-3.5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-mono">
+              <tbody className="divide-y divide-slate-800/80 font-mono text-slate-300">
                 {documents.map((doc) => (
-                  <tr key={doc.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="p-3.5 font-bold text-slate-900 font-sans">{doc.title}</td>
+                  <tr key={doc.id} className="hover:bg-[#131D36] transition-colors">
+                    <td className="p-3.5 font-bold text-white font-sans">{doc.title}</td>
                     <td className="p-3.5">
-                      <span className="badge-2d bg-indigo-50 text-indigo-700 border-indigo-200 text-[10px] px-2 py-0.5 rounded font-bold">
+                      <span className="badge-2d bg-indigo-950/80 text-indigo-400 border-indigo-700 text-[10px] px-2.5 py-0.5 rounded-full font-bold">
                         {doc.trust_tier}
                       </span>
                     </td>
-                    <td className="p-3.5 text-slate-700">{doc.chunk_count} Chunks</td>
+                    <td className="p-3.5 text-slate-400">{doc.chunk_count} Chunks</td>
                     <td className="p-3.5">
                       <span
-                        className={`font-bold px-2 py-0.5 rounded border ${
+                        className={`font-bold px-2.5 py-0.5 rounded-full border text-[10px] ${
                           doc.risk_score >= 65
-                            ? 'text-rose-700 bg-rose-50 border-rose-200'
-                            : 'text-emerald-700 bg-emerald-50 border-emerald-200'
+                            ? 'text-rose-400 bg-rose-950/80 border-rose-800'
+                            : 'text-emerald-400 bg-emerald-950/80 border-emerald-800'
                         }`}
                       >
                         {doc.risk_score.toFixed(1)}
@@ -886,11 +886,11 @@ export const VectorExplorerPage: React.FC = () => {
                     </td>
                     <td className="p-3.5">
                       {doc.is_quarantined ? (
-                        <span className="badge-2d bg-rose-50 text-rose-700 border-rose-200 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                        <span className="badge-2d bg-rose-950/80 text-rose-400 border-rose-700 text-[10px] px-2.5 py-0.5 rounded-full font-bold">
                           QUARANTINED
                         </span>
                       ) : (
-                        <span className="badge-2d bg-emerald-50 text-emerald-800 border-emerald-200 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                        <span className="badge-2d bg-emerald-950/80 text-emerald-400 border-emerald-700 text-[10px] px-2.5 py-0.5 rounded-full font-bold">
                           INDEXED
                         </span>
                       )}
@@ -898,7 +898,7 @@ export const VectorExplorerPage: React.FC = () => {
                     <td className="p-3.5 text-right">
                       <button
                         onClick={() => handleDeleteDoc(doc.id)}
-                        className="text-slate-400 hover:text-rose-600 transition-colors p-1.5 rounded-lg hover:bg-rose-50"
+                        className="text-slate-500 hover:text-rose-400 transition-colors p-1.5 rounded-lg hover:bg-rose-950/40"
                         title="Delete Document"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -915,49 +915,49 @@ export const VectorExplorerPage: React.FC = () => {
       {/* 5. SubTab: Quarantine Vault */}
       {subTab === 'quarantine' && (
         <div className="space-y-4">
-          <div className="text-xs font-extrabold text-slate-700 uppercase tracking-wider font-mono">
+          <div className="text-xs font-extrabold text-slate-300 uppercase tracking-wider font-mono">
             Quarantine Airlock Vault ({quarantineRecords.length} Isolated Items)
           </div>
 
           {quarantineRecords.length === 0 ? (
-            <div className="card-pro p-12 text-center text-xs text-slate-600 font-mono bg-white">
-              <CheckCircle className="w-10 h-10 text-emerald-600 mx-auto mb-2.5" />
+            <div className="card-dark p-12 text-center text-xs text-slate-400 font-mono bg-[#0A1020] border border-slate-800 rounded-2xl shadow-xl">
+              <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto mb-2.5" />
               <span className="font-bold">Quarantine Vault clean &bull; No threats quarantined.</span>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {quarantineRecords.map((q) => (
-                <div key={q.id} className="card-pro p-5 border border-rose-200 bg-rose-50/30 space-y-3.5">
-                  <div className="flex items-center justify-between pb-2.5 border-b border-rose-100">
-                    <span className="font-mono text-xs font-extrabold text-rose-900">{q.filename}</span>
-                    <span className="badge-2d bg-rose-100 text-rose-800 border-rose-300 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">
+                <div key={q.id} className="card-dark p-5 border border-rose-900/70 bg-[#120912] shadow-xl rounded-2xl space-y-3.5 text-slate-200">
+                  <div className="flex items-center justify-between pb-2.5 border-b border-rose-900/60">
+                    <span className="font-mono text-xs font-extrabold text-rose-400">{q.filename}</span>
+                    <span className="badge-2d bg-rose-950/80 text-rose-400 border-rose-700 text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold">
                       RISK: {q.risk_score}
                     </span>
                   </div>
 
-                  <p className="font-mono text-xs text-rose-950 bg-white p-3 rounded-xl border border-rose-200 line-clamp-3 leading-relaxed shadow-xs">
+                  <p className="font-mono text-xs text-rose-300 bg-[#07030A] p-3 rounded-xl border border-rose-900/60 line-clamp-3 leading-relaxed shadow-inner">
                     {q.snippet}
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 text-[10px] font-mono">
                     {q.reason_codes.map((rc, i) => (
-                      <span key={i} className="px-2 py-0.5 bg-rose-100 text-rose-900 rounded font-bold border border-rose-200">
+                      <span key={i} className="px-2 py-0.5 bg-rose-950/80 text-rose-400 rounded-full font-bold border border-rose-800">
                         {rc}
                       </span>
                     ))}
                   </div>
 
-                  <div className="pt-2.5 border-t border-rose-100 flex justify-end space-x-2.5">
+                  <div className="pt-2.5 border-t border-rose-900/60 flex justify-end space-x-2.5">
                     <button
                       onClick={() => handleReleaseQuarantine(q.id)}
-                      className="btn-2d px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-1.5"
+                      className="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center space-x-1.5 bg-[#0F172A] border border-slate-700 text-slate-300 hover:text-white"
                     >
-                      <Unlock className="w-3.5 h-3.5 text-emerald-600" />
+                      <Unlock className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Release &amp; Index</span>
                     </button>
                     <button
                       onClick={() => handlePurgeQuarantine(q.id)}
-                      className="btn-2d-danger px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center space-x-1.5"
+                      className="btn-2d-danger px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center space-x-1.5 shadow-sm"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       <span>Purge Threat</span>

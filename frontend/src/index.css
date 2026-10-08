@@ -15,56 +15,43 @@
   }
 }
 
-/* Light Enterprise Card */
-.card-2d, .card-pro {
-  border: 1px solid #E2E8F0;
-  background-color: #FFFFFF;
-  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 6px 16px -2px rgba(15, 23, 42, 0.03);
-  border-radius: 1rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card-2d:hover, .card-pro:hover {
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07);
-}
-
-/* Dark Cybersecurity Console Card (Dual-Tone Contrast) */
-.card-dark {
+/* Elite Dark Obsidian Cards on Clean Canvas (User Signature Style) */
+.card-2d, .card-pro, .card-dark, .card-obsidian {
   border: 1px solid #1E293B;
-  background-color: #0B1120;
+  background-color: #0A1020;
   color: #F8FAFC;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
-  border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.25);
+  border-radius: 1.25rem;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card-dark:hover {
+.card-2d:hover, .card-pro:hover, .card-dark:hover, .card-obsidian:hover {
   border-color: #334155;
-  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.45);
+  transform: translateY(-1.5px);
 }
 
 .card-2d-flat {
-  border: 1px solid #E2E8F0;
-  background-color: #FFFFFF;
-  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
-  border-radius: 0.875rem;
-}
-
-.card-2d-accent {
-  border: 1px solid #C7D2FE;
-  background-color: #F8FAFC;
-  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.08);
+  border: 1px solid #1E293B;
+  background-color: #0B1120;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
 }
 
-/* Secondary Button (Refined Clean Light) */
+.card-2d-accent {
+  border: 1px solid #4338CA;
+  background-color: #0E1326;
+  box-shadow: 0 8px 24px 0 rgba(79, 70, 229, 0.2);
+  border-radius: 1.25rem;
+}
+
+/* Secondary Button (Clean Dark Tactile) */
 .btn-2d {
-  border: 1px solid #CBD5E1;
-  background-color: #FFFFFF;
-  color: #0F172A;
+  border: 1px solid #334155;
+  background-color: #0F172A;
+  color: #F8FAFC;
   font-weight: 600;
-  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   border-radius: 0.75rem;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
@@ -74,9 +61,9 @@
 }
 
 .btn-2d:hover {
-  background-color: #F8FAFC;
-  border-color: #94A3B8;
-  box-shadow: 0 2px 4px 0 rgba(15, 23, 42, 0.08);
+  background-color: #1E293B;
+  border-color: #475569;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
   transform: translateY(-1px);
 }
 
@@ -87,11 +74,11 @@
 
 /* MAIN FUNCTION BUTTON: Sleek Dark Obsidian with Live Status Beacon & Glow */
 .btn-2d-primary, .btn-2d-dark {
-  border: 1px solid #1E293B;
+  border: 1px solid #312E81;
   background-color: #0F172A;
   color: #FFFFFF;
-  font-weight: 700;
-  box-shadow: 0 2px 6px 0 rgba(15, 23, 42, 0.25), 0 4px 14px 0 rgba(79, 70, 229, 0.2);
+  font-weight: 800;
+  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.3), 0 2px 6px 0 rgba(0, 0, 0, 0.4);
   border-radius: 0.75rem;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
@@ -103,20 +90,20 @@
 
 .btn-2d-primary:hover, .btn-2d-dark:hover {
   background-color: #020617;
-  border-color: #334155;
-  box-shadow: 0 4px 18px 0 rgba(79, 70, 229, 0.35);
+  border-color: #4338CA;
+  box-shadow: 0 6px 22px 0 rgba(79, 70, 229, 0.45);
   transform: translateY(-1.5px);
 }
 
 .btn-2d-primary:active, .btn-2d-dark:active {
   transform: translateY(1px);
-  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.2);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
 }
 
 /* Green Action Button */
 .btn-2d-success {
   border: 1px solid #065F46;
-  background-color: #059669;
+  background-color: #064E3B;
   color: #FFFFFF;
   font-weight: 700;
   box-shadow: 0 2px 8px 0 rgba(5, 150, 105, 0.25);
@@ -136,8 +123,8 @@
 
 /* Danger Action Button */
 .btn-2d-danger {
-  border: 1px solid #9F1239;
-  background-color: #E11D48;
+  border: 1px solid #881337;
+  background-color: #4C0519;
   color: #FFFFFF;
   font-weight: 700;
   box-shadow: 0 2px 8px 0 rgba(225, 29, 72, 0.25);
@@ -155,7 +142,7 @@
   transform: translateY(-1px);
 }
 
-/* Badges */
+/* Badges (Smooth Rounded Pill with Colored Ring) */
 .badge-2d {
   border-width: 1px;
   border-style: solid;
@@ -164,10 +151,11 @@
   letter-spacing: 0.05em;
   display: inline-flex;
   align-items: center;
+  border-radius: 9999px;
 }
 
 /* Subtle clean dot grid background */
 .light-dot-grid {
   background-size: 24px 24px;
-  background-image: radial-gradient(circle, #E2E8F0 1px, transparent 1px);
+  background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
 }
