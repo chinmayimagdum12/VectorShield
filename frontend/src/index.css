@@ -154,8 +154,41 @@
   border-radius: 9999px;
 }
 
+/* Hide scrollbar utility across all browsers */
+.scrollbar-none::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.scrollbar-none,
+.no-scrollbar {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+/* Global Modern Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
 /* Subtle clean dot grid background */
 .light-dot-grid {
   background-size: 24px 24px;
-  background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
+  background-image: radial-gradient(circle, #E2E8F0 1px, transparent 1px);
 }
