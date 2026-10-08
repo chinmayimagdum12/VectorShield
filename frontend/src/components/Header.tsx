@@ -1,6 +1,7 @@
-import React from 'react';
-import { Shield, Activity, Lock, Database, Radio } from 'lucide-react';
+import React, { useState } from 'react';
+import { Shield, Activity, Lock, Database, Radio, Volume2, VolumeX, Sparkles } from 'lucide-react';
 import { HealthStatus } from '../services/api';
+import { sound } from './SoundEffects';
 
 interface HeaderProps {
   health: HealthStatus | null;
@@ -8,56 +9,81 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ health }) => {
+  const [audioEnabled, setAudioEnabled] = useState(sound.enabled);
+
+  const toggleAudio = () => {
+    const newState = sound.toggle();
+    setAudioEnabled(newState);
+  };
+
   return (
-    <header className="border-b-2 border-slate-800 bg-[#0B111E]/95 backdrop-blur-md sticky top-0 z-50 px-6 py-3 shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border-2 border-emerald-500 flex items-center justify-center shadow-[3px_3px_0px_#10B981]">
-            <Shield className="w-6 h-6 text-emerald-400" />
+    <header className="border-b-2 border-slate-800 bg-[#070D18]/90 backdrop-blur-xl sticky top-0 z-50 px-6 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.6)]">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+        {/* Brand & Identity */}
+        <div className="flex items-center space-x-3.5">
+          <div className="relative group">
+            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border-2 border-emerald-500 flex items-center justify-center shadow-[3px_3px_0px_#10B981] transition-transform group-hover:scale-105">
+              <Shield className="w-5 h-5 text-emerald-400" />
+            </div>
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
           </div>
+
           <div>
             <div className="flex items-center space-x-2">
               <span className="text-xl font-extrabold tracking-tight text-white font-mono">
                 VECTOR<span className="text-emerald-400">SHIELD</span>
               </span>
-              <span className="badge-2d bg-emerald-500/20 text-emerald-400 border-emerald-500/40 text-[10px] px-2 py-0.5 rounded">
-                v1.0-DEFENSE
+              <span className="badge-2d bg-emerald-500/15 text-emerald-300 border-emerald-500/50 text-[10px] px-2 py-0.5 rounded font-mono">
+                SOC-ENTERPRISE
               </span>
             </div>
-            <p className="text-xs text-slate-400 tracking-wide">
-              Enterprise Multi-Layered Defense & Evaluation Platform for RAG
+            <p className="text-[11px] text-slate-400 font-medium tracking-wide">
+              Multi-Layered Defense &amp; Adversarial Evaluation Platform for RAG Systems
             </p>
           </div>
         </div>
 
-        {/* Telemetry Status Pills */}
-        <div className="flex items-center space-x-3 text-xs">
-          {/* Vector Store Status */}
-          <div className="flex items-center space-x-2 px-3 py-1.5 rounded bg-slate-900 border-2 border-slate-800 shadow-[2px_2px_0px_#000]">
+        {/* Live Telemetry & Quick Controls */}
+        <div className="flex items-center flex-wrap gap-2 text-xs">
+          {/* Vector Store */}
+          <div className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-slate-900/90 border border-slate-800 shadow-[2px_2px_0px_#000]">
             <Database className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-slate-400">Vector DB:</span>
-            <span className="font-mono text-cyan-300 font-bold uppercase">
-              {health?.vector_backend || 'Chroma-Native'}
+            <span className="text-slate-400 text-[11px]">Vector Engine:</span>
+            <span className="font-mono text-cyan-300 font-bold uppercase text-[11px]">
+              {health?.vector_backend || 'Chroma-Resilient'}
             </span>
-            <span className="text-slate-600">|</span>
-            <span className="text-emerald-400 font-mono font-bold">
-              {health?.indexed_chunks ?? 5} Chunks
+            <span className="text-slate-600">&bull;</span>
+            <span className="text-emerald-400 font-mono font-bold text-[11px]">
+              {health?.indexed_chunks ?? 6} Chunks
             </span>
           </div>
 
-          {/* Canary Status */}
-          <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded bg-slate-900 border-2 border-slate-800 shadow-[2px_2px_0px_#000]">
+          {/* Canary Indicator */}
+          <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-md bg-slate-900/90 border border-slate-800 shadow-[2px_2px_0px_#000]">
             <Lock className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-slate-400">Canary:</span>
-            <span className="font-mono text-amber-300 font-semibold">ACTIVE</span>
+            <span className="text-slate-400 text-[11px]">Canary Seal:</span>
+            <span className="font-mono text-amber-300 font-bold text-[11px]">ACTIVE</span>
           </div>
 
-          {/* Real-time Sentinel Heartbeat */}
-          <div className="flex items-center space-x-2 px-3 py-1.5 rounded bg-emerald-950/60 border-2 border-emerald-600/60 shadow-[2px_2px_0px_#064e3b]">
+          {/* Audio Haptic Feedback Toggle */}
+          <button
+            onClick={toggleAudio}
+            title={audioEnabled ? "Tactile Audio: Enabled" : "Tactile Audio: Muted"}
+            className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-md border text-[11px] font-mono transition-all ${
+              audioEnabled
+                ? 'bg-emerald-950/50 border-emerald-500 text-emerald-400 shadow-[2px_2px_0px_#10B981]'
+                : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+            }`}
+          >
+            {audioEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+            <span className="hidden md:inline">{audioEnabled ? 'AUDIO ON' : 'AUDIO OFF'}</span>
+          </button>
+
+          {/* Sentinel Status */}
+          <div className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-emerald-950/60 border-2 border-emerald-500/70 shadow-[2px_2px_0px_#064e3b]">
             <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 font-mono font-bold uppercase tracking-wider">
-              SENTINEL: ARMED
+            <span className="text-emerald-400 font-mono font-bold text-[11px] uppercase tracking-wider">
+              ARMED: L0-L5
             </span>
           </div>
         </div>

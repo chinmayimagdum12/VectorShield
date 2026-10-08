@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
+import { CyberBackground } from './components/CyberBackground';
 import { DashboardPage } from './pages/DashboardPage';
 import { AttackLabPage } from './pages/AttackLabPage';
 import { PipelineXRayPage } from './pages/PipelineXRayPage';
@@ -10,6 +11,7 @@ import { BenchmarkPage } from './pages/BenchmarkPage';
 import { IncidentsPage } from './pages/IncidentsPage';
 import { PolicyStudioPage } from './pages/PolicyStudioPage';
 import { api, HealthStatus } from './services/api';
+import { sound } from './components/SoundEffects';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
@@ -20,6 +22,32 @@ export function App() {
     fetchHealthAndIncidents();
     const interval = setInterval(fetchHealthAndIncidents, 10000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Keyboard navigation shortcuts (keys 1 to 8)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in input or textarea
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) {
+        return;
+      }
+      const keyMap: Record<string, string> = {
+        '1': 'dashboard',
+        '2': 'attack-lab',
+        '3': 'pipeline-xray',
+        '4': 'scanner',
+        '5': 'vector-map',
+        '6': 'benchmark',
+        '7': 'incidents',
+        '8': 'policies',
+      };
+      if (keyMap[e.key]) {
+        sound.playClick();
+        setActiveTab(keyMap[e.key]);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const fetchHealthAndIncidents = async () => {
@@ -36,7 +64,10 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070B13] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#070D18] text-slate-100 flex flex-col font-sans relative selection:bg-emerald-500 selection:text-black">
+      {/* Animated Neural Mesh Background */}
+      <CyberBackground />
+
       {/* Global Security Header */}
       <Header health={health} activeTab={activeTab} />
 
@@ -48,7 +79,7 @@ export function App() {
       />
 
       {/* Main Content Viewport */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-6 relative z-10">
         {activeTab === 'dashboard' && (
           <DashboardPage health={health} onNavigate={setActiveTab} />
         )}
@@ -62,7 +93,7 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t-2 border-slate-800/80 bg-[#0B111E] py-4 px-6 text-xs text-slate-400 font-mono mt-auto">
+      <footer className="border-t-2 border-slate-800 bg-[#070D18]/95 py-4 px-6 text-xs text-slate-400 font-mono mt-auto relative z-10 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />

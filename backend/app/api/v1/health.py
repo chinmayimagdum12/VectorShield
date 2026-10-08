@@ -4,8 +4,10 @@ from app.vector_store import get_vector_store
 
 router = APIRouter(prefix="/health", tags=["Health"])
 
+@router.get("")
 @router.get("/")
 def get_health():
+
     vs = get_vector_store()
     doc_count = vs.count()
     return {

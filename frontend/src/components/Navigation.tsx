@@ -9,6 +9,7 @@ import {
   AlertTriangle,
   Sliders
 } from 'lucide-react';
+import { sound } from './SoundEffects';
 
 interface NavigationProps {
   activeTab: string;
@@ -18,18 +19,23 @@ interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab, incidentCount = 0 }) => {
   const tabs = [
-    { id: 'dashboard', label: 'Threat Command', icon: LayoutDashboard },
-    { id: 'attack-lab', label: 'Attack Lab (Duel)', icon: Swords },
-    { id: 'pipeline-xray', label: 'Pipeline X-Ray', icon: GitFork },
-    { id: 'scanner', label: 'Document Scanner', icon: ScanEye },
-    { id: 'vector-map', label: 'Vector & Knowledge', icon: Network },
-    { id: 'benchmark', label: 'Benchmark Arena', icon: BarChart3 },
-    { id: 'incidents', label: 'Incident Forensics', icon: AlertTriangle, badge: incidentCount > 0 ? incidentCount : undefined },
-    { id: 'policies', label: 'Defense Policy', icon: Sliders },
+    { id: 'dashboard', label: 'Threat Command', icon: LayoutDashboard, shortcut: '1' },
+    { id: 'attack-lab', label: 'Attack Duel Arena', icon: Swords, shortcut: '2' },
+    { id: 'pipeline-xray', label: 'Pipeline X-Ray & Tracer', icon: GitFork, shortcut: '3' },
+    { id: 'scanner', label: 'Deep Document Scanner', icon: ScanEye, shortcut: '4' },
+    { id: 'vector-map', label: 'Vector & Knowledge', icon: Network, shortcut: '5' },
+    { id: 'benchmark', label: 'Benchmark Arena', icon: BarChart3, shortcut: '6' },
+    { id: 'incidents', label: 'Forensic Incidents', icon: AlertTriangle, shortcut: '7', badge: incidentCount > 0 ? incidentCount : undefined },
+    { id: 'policies', label: 'Defense Policy Studio', icon: Sliders, shortcut: '8' },
   ];
 
+  const handleTabClick = (id: string) => {
+    sound.playClick();
+    setActiveTab(id);
+  };
+
   return (
-    <div className="border-b-2 border-slate-800 bg-[#070B13]/80 px-6 pt-3 pb-0 sticky top-[61px] z-40 backdrop-blur">
+    <div className="border-b-2 border-slate-800 bg-[#070B13]/90 px-6 pt-3 pb-0 sticky top-[65px] z-40 backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto scrollbar-none py-1">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -37,15 +43,18 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab,
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center space-x-2 px-4 py-2.5 rounded-t-lg font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap border-t-2 border-x-2 ${
+              onClick={() => handleTabClick(tab.id)}
+              className={`group flex items-center space-x-2 px-3.5 py-2 rounded-t-lg font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap border-t-2 border-x-2 ${
                 isActive
-                  ? 'border-emerald-500 bg-[#0B111E] text-emerald-400 shadow-[3px_0px_0px_#000] translate-y-[2px] pb-3'
-                  : 'border-slate-800/80 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:border-slate-700 hover:bg-slate-800/70'
+                  ? 'border-emerald-500 bg-[#0B1220] text-emerald-400 shadow-[3px_0px_0px_#000] translate-y-[2px] pb-3'
+                  : 'border-slate-800/80 bg-slate-900/40 text-slate-400 hover:text-slate-200 hover:border-slate-700 hover:bg-slate-800/50'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-400' : 'text-slate-400'}`} />
+              <Icon className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${isActive ? 'text-emerald-400' : 'text-slate-400'}`} />
               <span>{tab.label}</span>
+              <span className="text-[9px] font-mono opacity-40 group-hover:opacity-100 transition-opacity ml-0.5">
+                [{tab.shortcut}]
+              </span>
               {tab.badge !== undefined && (
                 <span className="badge-2d bg-rose-500/20 text-rose-400 border-rose-500 text-[10px] px-1.5 py-0.2 rounded-full ml-1">
                   {tab.badge}

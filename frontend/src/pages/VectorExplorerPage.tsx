@@ -10,9 +10,14 @@ import {
   Search,
   ExternalLink,
   Unlock,
-  Layers
+  Layers,
+  ZoomIn,
+  ZoomOut,
+  Crosshair,
+  Filter
 } from 'lucide-react';
 import { api, VectorPoint, DocumentItem, QuarantineRecord } from '../services/api';
+import { sound } from '../components/SoundEffects';
 
 export const VectorExplorerPage: React.FC = () => {
   const [subTab, setSubTab] = useState<'map' | 'documents' | 'quarantine'>('map');
@@ -21,6 +26,8 @@ export const VectorExplorerPage: React.FC = () => {
   const [documents, setDocuments] = useState<DocumentItem[]>([]);
   const [quarantineRecords, setQuarantineRecords] = useState<QuarantineRecord[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [filterCluster, setFilterCluster] = useState<string>('ALL');
+  const [zoomScale, setZoomScale] = useState<number>(1.0);
 
   // New Document Form
   const [showAddDoc, setShowAddDoc] = useState<boolean>(false);
@@ -56,12 +63,13 @@ export const VectorExplorerPage: React.FC = () => {
   const handleIngest = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim() || !newContent.trim()) return;
-
+    sound.playClick();
     try {
       await api.ingestDocument(newTitle, newContent, 'user_upload', newTier);
       setShowAddDoc(false);
       setNewTitle('');
       setNewContent('');
+      sound.playSuccess();
       loadData();
     } catch (e) {
       console.error(e);
@@ -70,6 +78,7 @@ export const VectorExplorerPage: React.FC = () => {
 
   const handleDeleteDoc = async (id: string) => {
     if (!confirm('Are you sure you want to delete this document and remove its indexed vectors?')) return;
+    sound.playClick();
     try {
       await api.deleteDocument(id);
       loadData();
@@ -79,8 +88,10 @@ export const VectorExplorerPage: React.FC = () => {
   };
 
   const handleReleaseQuarantine = async (id: string) => {
+    sound.playClick();
     try {
       await api.releaseQuarantine(id);
+      sound.playSuccess();
       loadData();
     } catch (e) {
       console.error(e);
@@ -89,6 +100,7 @@ export const VectorExplorerPage: React.FC = () => {
 
   const handlePurgeQuarantine = async (id: string) => {
     if (!confirm('Permanently purge this quarantined threat?')) return;
+    sound.playClick();
     try {
       await api.purgeQuarantine(id);
       loadData();
@@ -96,6 +108,14 @@ export const VectorExplorerPage: React.FC = () => {
       console.error(e);
     }
   };
+
+  // Distinct cluster names for filtering
+  const clusterNames = ['ALL', ...Array.from(new Set(vectorPoints.map((p) => p.cluster)))];
+
+  const filteredPoints = vectorPoints.filter((p) => {
+    if (filterCluster === 'ALL') return true;
+    return p.cluster === filterCluster;
+  });
 
   return (
     <div className="space-y-6">
@@ -116,7 +136,7 @@ export const VectorExplorerPage: React.FC = () => {
         {/* Sub-tab pills */}
         <div className="flex items-center space-x-2">
           <button
-            onClick={() => setSubTab('map')}
+            onClick={() => { sound.playClick(); setSubTab('map'); }}
             className={`px-3 py-1.5 rounded text-xs font-bold font-mono transition-all border ${
               subTab === 'map'
                 ? 'border-emerald-500 bg-emerald-950/40 text-emerald-400 shadow-[2px_2px_0px_#10B981]'
@@ -126,7 +146,7 @@ export const VectorExplorerPage: React.FC = () => {
             2D Vector Map
           </button>
           <button
-            onClick={() => setSubTab('documents')}
+            onClick={() => { sound.playClick(); setSubTab('documents'); }}
             className={`px-3 py-1.5 rounded text-xs font-bold font-mono transition-all border ${
               subTab === 'documents'
                 ? 'border-emerald-500 bg-emerald-950/40 text-emerald-400 shadow-[2px_2px_0px_#10B981]'
@@ -136,7 +156,7 @@ export const VectorExplorerPage: React.FC = () => {
             Documents ({documents.length})
           </button>
           <button
-            onClick={() => setSubTab('quarantine')}
+            onClick={() => { sound.playClick(); setSubTab('quarantine'); }}
             className={`px-3 py-1.5 rounded text-xs font-bold font-mono transition-all border ${
               subTab === 'quarantine'
                 ? 'border-rose-500 bg-rose-950/40 text-rose-400 shadow-[2px_2px_0px_#EF4444]'
@@ -161,36 +181,62 @@ export const VectorExplorerPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Canvas: Interactive 2D Vector Map */}
           <div className="lg:col-span-2 card-2d p-5 flex flex-col">
-            <div className="flex items-center justify-between mb-3 text-xs font-mono">
-              <span className="text-slate-400 font-bold uppercase">
-                Vector Geometry (PCA 384-D &rarr; 2-D Projection)
-              </span>
-              <div className="flex items-center space-x-3 text-[11px]">
-                <span className="flex items-center space-x-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                  <span className="text-slate-300">Benign Corpus</span>
-                </span>
-                <span className="flex items-center space-x-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
-                  <span className="text-slate-300">System (Tier 0)</span>
-                </span>
-                <span className="flex items-center space-x-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                  <span className="text-rose-400 font-bold">Poisoned / Hostile</span>
-                </span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 text-xs font-mono">
+              <div className="flex items-center space-x-2">
+                <Filter className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="text-slate-400 font-bold uppercase text-[11px]">Filter Cluster:</span>
+                <select
+                  value={filterCluster}
+                  onChange={(e) => setFilterCluster(e.target.value)}
+                  className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-xs text-white"
+                >
+                  {clusterNames.map((cn) => (
+                    <option key={cn} value={cn}>
+                      {cn}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Zoom controls */}
+              <div className="flex items-center space-x-2 text-[11px]">
+                <button
+                  onClick={() => setZoomScale((prev) => Math.min(2.0, prev + 0.2))}
+                  className="p-1 rounded bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
+                  title="Zoom In"
+                >
+                  <ZoomIn className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setZoomScale((prev) => Math.max(0.6, prev - 0.2))}
+                  className="p-1 rounded bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
+                  title="Zoom Out"
+                >
+                  <ZoomOut className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setZoomScale(1.0)}
+                  className="p-1 rounded bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
+                  title="Reset Scale"
+                >
+                  <Crosshair className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-slate-400">{Math.round(zoomScale * 100)}%</span>
               </div>
             </div>
 
             {/* Interactive Vector Canvas Area */}
-            <div className="relative w-full h-[440px] bg-slate-950 rounded border-2 border-slate-800 cyber-grid overflow-hidden flex items-center justify-center p-4">
+            <div className="relative w-full h-[460px] bg-slate-950 rounded border-2 border-slate-800 cyber-grid overflow-hidden flex items-center justify-center p-4">
               {/* Origin Crosshairs */}
               <div className="absolute inset-x-0 top-1/2 border-t border-slate-800/80 pointer-events-none" />
               <div className="absolute inset-y-0 left-1/2 border-l border-slate-800/80 pointer-events-none" />
 
-              {/* Vector Scatter Points */}
-              <div className="relative w-full h-full">
-                {vectorPoints.map((pt) => {
-                  // Map coordinates (-100 to 100) into percentage (0% to 100%)
+              {/* Vector Scatter Points container with scale transform */}
+              <div
+                style={{ transform: `scale(${zoomScale})`, transformOrigin: 'center center' }}
+                className="relative w-full h-full transition-transform duration-200"
+              >
+                {filteredPoints.map((pt) => {
                   const left = `${Math.min(95, Math.max(5, (pt.x + 100) / 2))}%`;
                   const top = `${Math.min(95, Math.max(5, (100 - pt.y) / 2))}%`;
                   const isSelected = selectedPoint?.id === pt.id;
@@ -205,16 +251,36 @@ export const VectorExplorerPage: React.FC = () => {
                   return (
                     <button
                       key={pt.id}
-                      onClick={() => setSelectedPoint(pt)}
+                      onClick={() => {
+                        sound.playClick();
+                        setSelectedPoint(pt);
+                      }}
                       style={{ left, top }}
-                      className={`absolute -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 transition-all ${colorClass} ${
-                        isSelected ? 'scale-150 ring-4 ring-white/30 z-20' : 'hover:scale-125 z-10'
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 transition-all cursor-pointer ${colorClass} ${
+                        isSelected ? 'scale-150 ring-4 ring-white/40 z-30' : 'hover:scale-125 z-10'
                       }`}
                       title={`${pt.cluster} [Risk: ${pt.risk_score.toFixed(1)}]`}
                     />
                   );
                 })}
               </div>
+            </div>
+
+            {/* Legend row */}
+            <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mt-2 pt-2 border-t border-slate-800">
+              <span className="flex items-center space-x-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                <span>Verified Corpus</span>
+              </span>
+              <span className="flex items-center space-x-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+                <span>System Tier 0</span>
+              </span>
+              <span className="flex items-center space-x-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" />
+                <span className="text-rose-400 font-bold">Poisoned Vectors</span>
+              </span>
+              <span>Showing: {filteredPoints.length} of {vectorPoints.length}</span>
             </div>
           </div>
 
@@ -227,9 +293,9 @@ export const VectorExplorerPage: React.FC = () => {
 
               {selectedPoint ? (
                 <div className="space-y-4 text-xs font-mono">
-                  <div className="p-3 rounded bg-slate-900 border border-slate-800 space-y-2">
+                  <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Node ID:</span>
+                      <span className="text-slate-400">Node Identifier:</span>
                       <span className="text-white font-bold">{selectedPoint.id}</span>
                     </div>
                     <div className="flex justify-between">
@@ -237,17 +303,17 @@ export const VectorExplorerPage: React.FC = () => {
                       <span className="text-emerald-400 font-bold">{selectedPoint.cluster}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Trust Tier:</span>
-                      <span className="text-cyan-400">{selectedPoint.trust_tier}</span>
+                      <span className="text-slate-400">Provenance Tier:</span>
+                      <span className="text-cyan-400 font-bold">{selectedPoint.trust_tier}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Coordinates:</span>
+                      <span className="text-slate-400">PCA Coordinates:</span>
                       <span className="text-slate-300">
                         ({selectedPoint.x}, {selectedPoint.y})
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Threat Risk Score:</span>
+                      <span className="text-slate-400">Adversarial Risk:</span>
                       <span
                         className={`font-bold ${
                           selectedPoint.risk_score >= 65 ? 'text-rose-400' : 'text-emerald-400'
@@ -260,22 +326,22 @@ export const VectorExplorerPage: React.FC = () => {
 
                   <div>
                     <div className="text-slate-400 font-bold mb-1 uppercase text-[11px]">
-                      Embedded Chunk Text:
+                      Embedded Chunk Context:
                     </div>
-                    <div className="p-3 rounded bg-slate-950 border border-slate-800 text-slate-300 font-sans leading-relaxed text-xs max-h-[160px] overflow-y-auto">
+                    <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 font-sans leading-relaxed text-xs max-h-[160px] overflow-y-auto">
                       {selectedPoint.text}
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-16 text-slate-500 text-xs">
+                <div className="text-center py-16 text-slate-500 text-xs font-mono">
                   Click on any vector node in the 2D scatter space to inspect metadata.
                 </div>
               )}
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
-              Dimensionality Reduction: 384-D dense embeddings mapped via 2-Component Principal Component Analysis.
+            <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
+              Vector Database: Dual-Engine (ChromaDB + VectorShield NumPy Engine). 100% Persistence.
             </div>
           </div>
         </div>
@@ -302,7 +368,7 @@ export const VectorExplorerPage: React.FC = () => {
             <form onSubmit={handleIngest} className="card-2d p-4 space-y-3 bg-slate-900/90">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-slate-300 uppercase">Document Title:</label>
+                  <label className="text-xs font-bold text-slate-300 uppercase font-mono">Document Title:</label>
                   <input
                     type="text"
                     required
@@ -313,7 +379,7 @@ export const VectorExplorerPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-slate-300 uppercase">Trust Tier:</label>
+                  <label className="text-xs font-bold text-slate-300 uppercase font-mono">Trust Tier:</label>
                   <select
                     value={newTier}
                     onChange={(e) => setNewTier(e.target.value)}
@@ -327,7 +393,7 @@ export const VectorExplorerPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-300 uppercase">Document Text Content:</label>
+                <label className="text-xs font-bold text-slate-300 uppercase font-mono">Document Text Content:</label>
                 <textarea
                   required
                   rows={4}
@@ -366,17 +432,17 @@ export const VectorExplorerPage: React.FC = () => {
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-slate-800 font-mono">
                 {documents.map((doc) => (
                   <tr key={doc.id} className="hover:bg-slate-900/50 transition-colors">
-                    <td className="p-3 font-semibold text-white">{doc.title}</td>
+                    <td className="p-3 font-semibold text-white font-sans">{doc.title}</td>
                     <td className="p-3">
                       <span className="badge-2d bg-cyan-500/10 text-cyan-400 border-cyan-500 text-[10px] px-2 py-0.5 rounded">
                         {doc.trust_tier}
                       </span>
                     </td>
-                    <td className="p-3 font-mono text-slate-300">{doc.chunk_count} Chunks</td>
-                    <td className="p-3 font-mono">
+                    <td className="p-3 text-slate-300">{doc.chunk_count} Chunks</td>
+                    <td className="p-3">
                       <span
                         className={doc.risk_score >= 65 ? 'text-rose-400 font-bold' : 'text-emerald-400'}
                       >
@@ -429,7 +495,7 @@ export const VectorExplorerPage: React.FC = () => {
                 <div key={q.id} className="card-2d p-4 border-rose-900/60 bg-rose-950/20 space-y-3">
                   <div className="flex items-center justify-between pb-2 border-b border-rose-900/40">
                     <span className="font-mono text-xs font-bold text-rose-300">{q.filename}</span>
-                    <span className="badge-2d bg-rose-500/20 text-rose-400 border-rose-500 text-[10px] px-2 py-0.5 rounded">
+                    <span className="badge-2d bg-rose-500/20 text-rose-400 border-rose-500 text-[10px] px-2 py-0.5 rounded font-mono">
                       RISK: {q.risk_score}
                     </span>
                   </div>

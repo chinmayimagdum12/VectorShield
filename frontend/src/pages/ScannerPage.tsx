@@ -9,9 +9,12 @@ import {
   RefreshCw,
   Sliders,
   ShieldAlert,
-  ArrowRight
+  ArrowRight,
+  Activity,
+  Zap
 } from 'lucide-react';
 import { api, ScanResult } from '../services/api';
+import { sound } from '../components/SoundEffects';
 
 export const ScannerPage: React.FC = () => {
   const [inputText, setInputText] = useState<string>(
@@ -41,11 +44,17 @@ export const ScannerPage: React.FC = () => {
   ];
 
   const handleScan = async (textToScan = inputText) => {
+    sound.playClick();
     setScanning(true);
     setIngestMsg(null);
     try {
       const res = await api.scanText(textToScan);
       setScanResult(res);
+      if (res.is_blocked) {
+        sound.playAlert();
+      } else {
+        sound.playSuccess();
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -57,12 +66,18 @@ export const ScannerPage: React.FC = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    sound.playClick();
     setScanning(true);
     setIngestMsg(null);
     try {
       const res = await api.scanFile(file);
       setScanResult(res);
       setInputText(`[Inspected Uploaded File: ${file.name}]\nExtracted content scan completed.`);
+      if (res.is_blocked) {
+        sound.playAlert();
+      } else {
+        sound.playSuccess();
+      }
     } catch (err: any) {
       console.error(err);
       alert('Error scanning uploaded file: ' + err.message);
@@ -73,6 +88,7 @@ export const ScannerPage: React.FC = () => {
 
   const handleCommitToVector = async () => {
     if (!scanResult) return;
+    sound.playClick();
     try {
       const res = await api.ingestDocument(
         'Scanned Document Submission',
@@ -81,6 +97,7 @@ export const ScannerPage: React.FC = () => {
         'tier_1'
       );
       setIngestMsg(res.message);
+      sound.playSuccess();
     } catch (e: any) {
       setIngestMsg('Ingestion failed: ' + e.message);
     }
@@ -117,7 +134,7 @@ export const ScannerPage: React.FC = () => {
             {scanning ? (
               <>
                 <RefreshCw className="w-4 h-4 animate-spin" />
-                <span>Scanning...</span>
+                <span>Deep Scanning...</span>
               </>
             ) : (
               <>
@@ -131,8 +148,8 @@ export const ScannerPage: React.FC = () => {
 
       {/* Preset Pills */}
       <div className="flex items-center space-x-2 overflow-x-auto pb-1 text-xs">
-        <span className="text-slate-400 font-bold uppercase tracking-wider text-[11px] whitespace-nowrap">
-          Load Sample:
+        <span className="text-slate-400 font-bold uppercase tracking-wider text-[11px] whitespace-nowrap font-mono">
+          Adversarial Test Vectors:
         </span>
         {samplePresets.map((preset, idx) => (
           <button
@@ -141,7 +158,7 @@ export const ScannerPage: React.FC = () => {
               setInputText(preset.text);
               handleScan(preset.text);
             }}
-            className="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:text-emerald-400 hover:border-emerald-500 font-medium whitespace-nowrap transition-colors"
+            className="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:text-emerald-400 hover:border-emerald-500 font-medium whitespace-nowrap transition-colors text-xs font-mono"
           >
             {preset.label}
           </button>
@@ -150,14 +167,19 @@ export const ScannerPage: React.FC = () => {
 
       {/* Editor & Results Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: Input Text Inspector */}
-        <div className="card-2d p-5 flex flex-col">
+        {/* Left: Input Text Inspector with animated Laser line */}
+        <div className="card-2d p-5 flex flex-col relative overflow-hidden">
+          {scanning && (
+            <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-emerald-500 via-cyan-400 to-emerald-500 shadow-[0_0_12px_#10B981] animate-[bounce_2s_infinite] z-20 pointer-events-none" />
+          )}
+
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-300 uppercase tracking-wider font-mono">
-              Raw Document Buffer
+            <span className="text-xs font-bold text-slate-300 uppercase tracking-wider font-mono flex items-center space-x-1.5">
+              <Activity className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Inspection Buffer</span>
             </span>
             <span className="text-[11px] text-slate-400 font-mono">
-              {inputText.length} Characters &bull; {inputText.split(/\s+/).length} Tokens
+              {inputText.length} Chars &bull; {inputText.split(/\s+/).length} Tokens
             </span>
           </div>
 
@@ -179,7 +201,7 @@ export const ScannerPage: React.FC = () => {
               </span>
               {scanResult && (
                 <span
-                  className={`badge-2d text-[10px] px-2.5 py-0.5 rounded ${
+                  className={`badge-2d text-[10px] px-2.5 py-0.5 rounded font-mono ${
                     scanResult.is_blocked
                       ? 'bg-rose-500/20 text-rose-400 border-rose-500'
                       : 'bg-emerald-500/20 text-emerald-400 border-emerald-500'
@@ -193,9 +215,11 @@ export const ScannerPage: React.FC = () => {
             {scanResult ? (
               <div className="space-y-4">
                 {/* Risk Score Meter */}
-                <div className="p-4 rounded bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div className="p-4 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between">
                   <div>
-                    <div className="text-[11px] font-bold text-slate-400 uppercase">Composite Threat Score</div>
+                    <div className="text-[11px] font-bold text-slate-400 uppercase font-mono">
+                      Noisy-OR Composite Risk
+                    </div>
                     <div className="flex items-baseline space-x-2 mt-1">
                       <span
                         className={`text-4xl font-extrabold font-mono ${
@@ -208,16 +232,19 @@ export const ScannerPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="text-right text-xs">
+                  <div className="text-right text-xs font-mono">
                     <div className="text-slate-400">Total Findings:</div>
                     <div className="text-lg font-mono font-bold text-white">{scanResult.findings.length}</div>
+                    <div className="text-[10px] text-slate-500">
+                      {scanResult.metadata?.encoded_payloads || 0} Encoded &bull; {scanResult.metadata?.hidden_elements || 0} Hidden
+                    </div>
                   </div>
                 </div>
 
                 {/* Findings List */}
                 <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
                   {scanResult.findings.length === 0 ? (
-                    <div className="p-4 rounded bg-emerald-950/20 border border-emerald-900/40 text-xs text-emerald-300 flex items-center space-x-2">
+                    <div className="p-4 rounded bg-emerald-950/20 border border-emerald-900/40 text-xs text-emerald-300 flex items-center space-x-2 font-mono">
                       <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                       <span>Zero adversarial patterns or steganographic anomalies detected.</span>
                     </div>
@@ -225,18 +252,20 @@ export const ScannerPage: React.FC = () => {
                     scanResult.findings.map((f, i) => (
                       <div
                         key={i}
-                        className={`p-3 rounded border text-xs ${
+                        className={`p-3 rounded-lg border text-xs ${
                           f.severity === 'critical'
                             ? 'bg-rose-950/30 border-rose-800/80 text-rose-200'
                             : 'bg-amber-950/30 border-amber-800/80 text-amber-200'
                         }`}
                       >
                         <div className="flex items-center justify-between font-mono text-[11px] font-bold mb-1">
-                          <span>{f.reason_code}</span>
-                          <span className="uppercase text-[10px]">{f.severity}</span>
+                          <span className="text-white">{f.reason_code}</span>
+                          <span className="uppercase text-[9px] px-1.5 py-0.2 rounded bg-black/40 border border-white/20">
+                            {f.severity} &bull; Offset [{f.start}:{f.end}]
+                          </span>
                         </div>
                         <p className="text-[11px] text-slate-300 font-sans">{f.description}</p>
-                        <div className="mt-1 font-mono text-[10px] text-slate-400 bg-black/40 px-2 py-1 rounded truncate">
+                        <div className="mt-1 font-mono text-[10px] text-slate-400 bg-black/50 px-2 py-1 rounded truncate">
                           Snippet: &quot;{f.snippet}&quot;
                         </div>
                       </div>
@@ -261,7 +290,7 @@ export const ScannerPage: React.FC = () => {
                 }`}
               >
                 <span>
-                  {scanResult.is_blocked ? 'Commit to Quarantine Vault' : 'Index into Vector Database'}
+                  {scanResult.is_blocked ? 'Route to Quarantine Vault' : 'Index into Knowledge Base'}
                 </span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
