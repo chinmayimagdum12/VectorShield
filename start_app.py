@@ -11,7 +11,7 @@ if backend_dir not in sys.path:
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "8000"))
-    host = os.getenv("HOST", "127.0.0.1")
+    host = os.getenv("HOST", "0.0.0.0")
 
     print("\n" + "=" * 70)
     print("      VECTORSHIELD ENTERPRISE DEFENSE PLATFORM LAUNCHER")
@@ -22,10 +22,14 @@ if __name__ == "__main__":
     print(f"[*] Health & Telemetry Endpoint at:  http://localhost:{port}/api/v1/health")
     print("=" * 70 + "\n")
 
-    # Launch browser after a brief delay
+    # Launch browser only if in desktop environment
     def open_browser():
-        time.sleep(1.2)
-        webbrowser.open(f"http://localhost:{port}")
+        try:
+            time.sleep(1.2)
+            if os.getenv("ENVIRONMENT") != "production":
+                webbrowser.open(f"http://localhost:{port}")
+        except Exception:
+            pass
 
     import threading
     threading.Thread(target=open_browser, daemon=True).start()
