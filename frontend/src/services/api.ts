@@ -1,4 +1,5 @@
-const BASE_URL = '/api/v1';
+const API_HOST = (import.meta as any).env?.VITE_API_BASE_URL || '';
+const BASE_URL = `${API_HOST}/api/v1`;
 
 export interface HealthStatus {
   status: string;
